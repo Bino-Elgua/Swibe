@@ -1,0 +1,49 @@
+-- Swibe Mission: Contribute to awesome-ai-agents-2026
+-- Goal: Identify gaps in Coding Agents/Frameworks and propose Swibe.
+
+skill Scout {
+  prompt: "Parse caramaschiHG/awesome-ai-agents-2026 README. Find gaps in 'Coding Agents' or 'Frameworks'.",
+  tools: ["http", "html_parser"]
+}
+
+skill Drafter {
+  prompt: "Draft a PR entry for Swibe: 'Swibe - A compact, agent-native scripting language that compiles to 18 targets.'",
+  tools: ["markdown_gen"]
+}
+
+-- Multi-agent team for the contribution mission
+swarm {
+  scout: Scout =>
+  drafter: Drafter =>
+  verifier: Agent {
+    name: "Verifier",
+    system_prompt: %% "Validate the entry format against the repo's CONTRIBUTING.md. Check for broken links."
+  } =>
+  reflector: Agent {
+    name: "Reflector",
+    system_prompt: %% "If the draft is incomplete or misses context, suggest improvements for the next pass."
+  }
+}
+
+fn main() {
+  println("Launching Swibe Contribution Mission: awesome-ai-agents-2026")
+  
+  -- Load previous scan state if exists
+  rag.load("agent_list_scan")
+
+  -- Loop until the PR draft is valid and ready
+  loop until goal: "PR draft is valid, formatted correctly, and ready for submission" {
+    println("Scanning and drafting...")
+    
+    trace("Mission status", { step: "Scanning README", target: "awesome-ai-agents-2026" })
+    
+    -- Execute the swarm to scout, draft, and verify
+    %% execute swarm: scout |> drafter |> verifier |> reflector
+    
+    -- Save the state of the scan and draft
+    rag.save("agent_list_scan")
+  }
+  
+  trace("Mission Complete: Draft saved to RAG memory.")
+  println("Ready for human review. Check 'agent_list_scan' for the Markdown output.")
+}
