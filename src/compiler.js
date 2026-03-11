@@ -295,10 +295,15 @@ class Compiler {
   genJSSkill(node) {
     let code = `const ${node.name} = {\n`;
     code += `  type: "skill",\n`;
-    for (const [key, value] of Object.entries(node.body)) {
-      code += `  ${key}: ${this.genJavaScript(value)},\n`;
+    code += `  actions: async () => {\n`;
+    for (const item of node.body) {
+      if (item.type === 'CallToolStatement') {
+        code += `    ${this.genJavaScript(item)}\n`;
+      } else {
+        code += `    this.${item.name} = ${this.genJavaScript(item.value)};\n`;
+      }
     }
-    code += `};\n`;
+    code += `  }\n};\n`;
     return code;
   }
 
@@ -325,12 +330,19 @@ class Compiler {
 
   genAgentSkillsFormat(node) {
     if (node.type === 'SkillDecl') {
+      const instructions = node.body
+        .filter(item => item.type === 'SkillProperty' && item.name === 'prompt')
+        .map(item => this.genJavaScript(item.value))[0] || "";
+      const tools = node.body
+        .filter(item => item.type === 'SkillProperty' && item.name === 'tools')
+        .flatMap(item => item.value.elements ? item.value.elements.map(e => e.value) : []) || [];
+        
       return JSON.stringify({
         version: "2026.1",
         name: node.name,
         type: "skill",
-        instructions: node.body.prompt ? this.genJavaScript(node.body.prompt) : "",
-        tools: node.body.tools ? node.body.tools.elements.map(e => e.value) : [],
+        instructions,
+        tools,
         resources: []
       }, null, 2);
     }

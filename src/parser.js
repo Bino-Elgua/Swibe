@@ -344,11 +344,16 @@ class Parser {
     const name = this.expect(TokenType.IDENTIFIER).value;
     this.expect(TokenType.LBRACE);
 
-    const body = {};
+    const body = [];
     while (this.current().type !== TokenType.RBRACE) {
-      const field = this.expect(TokenType.IDENTIFIER).value;
-      this.expect(TokenType.COLON);
-      body[field] = this.parseExpression();
+      if (this.current().type === TokenType.CALL_TOOL) {
+        body.push(this.parseCallToolStatement());
+      } else {
+        const field = this.expect(TokenType.IDENTIFIER).value;
+        this.expect(TokenType.COLON);
+        const value = this.parseExpression();
+        body.push(new ASTNode('SkillProperty', { name: field, value }));
+      }
       if (this.current().type === TokenType.COMMA) this.advance();
     }
 

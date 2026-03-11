@@ -153,6 +153,15 @@ class LLMIntegration {
   email.contains("@") && email.contains(".")
 }`;
     }
+    if (prompt.includes('Scan src/parser.js')) {
+      return `"Found issue: Recursion depth in 'processPrompts' is hardcoded to 2. Suggest making it configurable or increasing limit."`;
+    }
+    if (prompt.includes('Generate a minimal patch')) {
+      return `"const MAX_RECURSION_DEPTH = 5; // Updated from 2"`;
+    }
+    if (prompt.includes('Simulate running unit tests')) {
+      return `"PASS"`;
+    }
     if (prompt.includes('agent') || prompt.includes('You are')) {
       return `"You are a helpful agent"`;
     }

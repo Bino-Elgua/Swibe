@@ -4,6 +4,12 @@ A compact, agent-native scripting language. Natural-feeling syntax that compiles
 
 **Status**: Alpha. Core pipeline (Lexer -> Parser -> Inference -> IR -> Codegen) is live and verified.
 
+## Quick Start
+```bash
+npm install @bino-elgua/swibe -g
+swibe run examples/self-repair.swibe
+```
+
 ## Core Primitives
 
 - **Swarms**: Declarative multi-agent orchestration.
@@ -54,12 +60,6 @@ Swibe generates idiomatic code for 18 targets:
 - **Functional**: Julia, Haskell, OCaml, Scala, Clojure, Scheme
 - **Specialized**: Idris, Move, R, Prolog, Lisp, Lua, MATLAB, Wolfram
 - **Ecosystem**: **Agent Skills JSON** (for 2026 interoperability)
-
-## Quick Start
-```bash
-npm install
-npm run compile examples/app.vibe -- --target javascript
-```
 
 ## Project Structure
 - `src/lexer.js`: Tokenizer for 90+ primitives.

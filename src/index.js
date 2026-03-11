@@ -1,5 +1,6 @@
+#!/usr/bin/env node
 /**
- * Vibe Language Main Entry Point
+ * Swibe Language Main Entry Point
  */
 
 import { Lexer } from './lexer.js';
