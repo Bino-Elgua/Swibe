@@ -4,7 +4,9 @@
  */
 
 import vm from 'node:vm';
+import crypto from 'node:crypto';
 import { Agent, LLMIntegration } from './llm-integration.js';
+import { sovereign } from './sovereign-vault.js';
 
 class StandardLibrary {
   constructor() {
@@ -50,10 +52,18 @@ class StandardLibrary {
       'encrypt_storage': this.encrypt_storage,
       'no_external_upload': this.no_external_upload,
       'search_tags': this.search_tags,
+
+      // Sovereign Identity & Vault (Rituals)
+      'gen_ritual_keypair': this.gen_ritual_keypair.bind(this),
+      'aes_gcm_encrypt': this.aes_gcm_encrypt.bind(this),
+      'aes_gcm_decrypt': this.aes_gcm_decrypt.bind(this),
+      'ed25519_sign': this.ed25519_sign.bind(this),
+      'ed25519_verify': this.ed25519_verify.bind(this),
+      'derive_aes_key': this.derive_aes_key.bind(this),
+      'bipon39_entropyToMnemonic': this.bipon39_entropyToMnemonic.bind(this),
+      'bipon39_mnemonicToSeed': this.bipon39_mnemonicToSeed.bind(this),
     };
   }
-
-  // ... (rest of methods)
 
   encrypt_storage() {
     console.log("🔒 [SECURITY] Local storage encrypted with AES-256.");
@@ -161,6 +171,22 @@ class StandardLibrary {
       clearTimeout,
       encrypt_storage: this.encrypt_storage.bind(this),
       no_external_upload: this.no_external_upload.bind(this),
+      println: (...args) => console.log('[SANDBOX-LOG]', ...args),
+      
+      // Sovereign Rituals exposed to sandbox
+      gen_ritual_keypair: this.gen_ritual_keypair.bind(this),
+      aes_gcm_encrypt: this.aes_gcm_encrypt.bind(this),
+      aes_gcm_decrypt: this.aes_gcm_decrypt.bind(this),
+      ed25519_sign: this.ed25519_sign.bind(this),
+      ed25519_verify: this.ed25519_verify.bind(this),
+      derive_aes_key: this.derive_aes_key.bind(this),
+      bipon39_entropyToMnemonic: this.bipon39_entropyToMnemonic.bind(this),
+      bipon39_mnemonicToSeed: this.bipon39_mnemonicToSeed.bind(this),
+      crypto: { 
+        randomBytes: (n) => crypto.randomBytes(n) 
+      },
+      json: JSON,
+
       process: { exit: () => { throw new Error('process.exit() is forbidden'); } }
     });
     try {
@@ -169,6 +195,39 @@ class StandardLibrary {
       console.error('[SANDBOX-ERROR]', err.message);
       throw err;
     }
+  }
+
+  // Sovereign Identity Rituals
+  gen_ritual_keypair(seed) {
+    return sovereign.generateIdentity(seed);
+  }
+
+  aes_gcm_encrypt(data, seed) {
+    return sovereign.encryptVault(JSON.parse(data), seed);
+  }
+
+  aes_gcm_decrypt(encrypted, seed) {
+    return JSON.stringify(sovereign.decryptVault(encrypted, seed));
+  }
+
+  ed25519_sign(data, privKey) {
+    return sovereign.sign(data, privKey);
+  }
+
+  ed25519_verify(sig, data, pubKey) {
+    return sovereign.verify(sig, data, pubKey);
+  }
+
+  derive_aes_key(seed) {
+    return seed; // Simple pass-through for mock
+  }
+
+  bipon39_entropyToMnemonic(entropy, bits) {
+    return sovereign.generateRitualPhrase(bits);
+  }
+
+  bipon39_mnemonicToSeed(phrase) {
+    return sovereign.deriveSeed(phrase);
   }
 }
 

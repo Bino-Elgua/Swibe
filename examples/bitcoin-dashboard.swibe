@@ -1,0 +1,33 @@
+-- Bitcoin Oracle Dashboard: The Living View
+-- Goal: Birth a self-healing dashboard that visualizes the Oracle's breath from RAG.
+
+skill Architect {
+  prompt: "Design a dashboard for '{{need}}'. Include a price chart and an event log."
+}
+
+skill Builder {
+  prompt: "Generate the Swibe/React code. Fetch data from RAG key 'btc_oracle_breath' and live MCP 'coinbase_api'."
+}
+
+skill Healer {
+  loop until goal: "Dashboard loads data successfully and has no console errors" {
+    -- Monitor for empty data or API failures
+    -- Auto-patch connection logic
+    rag.save("dashboard_state")
+  }
+}
+
+app {
+  type: "dashboard",
+  need: "live BTC price + 24h chart + oracle breath history",
+  platform: "web"
+}
+
+swarm {
+  architect: Architect =>
+  builder: Builder =>
+  healer: Healer =>
+  runner: "Deploy to Vercel and return live URL"
+}
+
+trace("Dashboard born and breathing")

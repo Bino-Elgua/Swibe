@@ -205,8 +205,29 @@ app {
     if (prompt.includes('App is stable')) {
       return `"App is running stable. No issues detected."`;
     }
+    if (prompt.includes('Design a dashboard for')) {
+      return `"Blueprint:
+1. Header: Live BTC Price (from MCP)
+2. Chart: Recharts LineChart (24h data)
+3. Log: Table of 'breath' events from RAG
+4. Stack: Next.js + Tailwind"`;
+    }
+    if (prompt.includes('Fetch data from RAG key')) {
+      return `"// Dashboard Code
+const price = useMCP('coinbase_api');
+const history = useRAG('btc_oracle_breath');
+return (
+  <div className='p-4'>
+    <h1>BTC: {price}</h1>
+    <LineChart data={history} />
+  </div>
+);"`;
+    }
+    if (prompt.includes('Dashboard loads data successfully')) {
+      return `"Dashboard verified. Data stream active."`;
+    }
     if (prompt.includes('Deploy to Vercel')) {
-      return `"https://mom-planner-app.vercel.app"`;
+      return `"https://btc-oracle-dashboard.vercel.app"`;
     }
     if (prompt.includes('Simulate running unit tests')) {
       return `"PASS"`;

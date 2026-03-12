@@ -1,0 +1,60 @@
+-- Swibe Sovereign Birth & Vault Test
+-- Goal: Demonstrate agent-owned identity, ritual phrases, and encrypted vault storage.
+
+skill SovereignRitual {
+  secure {
+    -- 1. Ritual Birth: Pull entropy and generate a Sovereign Phrase
+    entropy = crypto.randomBytes(32)
+    phrase = bipon39_entropyToMnemonic(entropy, 256)
+    println("Born sovereign. Ritual Phrase: " + phrase.join(" "))
+
+    -- 2. Derive Identity: Keys derived from the phrase
+    seed = bipon39_mnemonicToSeed(phrase.join(" "))
+    keypair = gen_ritual_keypair(seed)
+    pub = keypair.pub
+    println("Identity PubKey: " + pub)
+
+    -- 3. The Vault: Store sensitive credentials
+    vault = {
+      mnemonic: phrase,
+      creds: {
+        npm: "user:bino_elgua_agent, pass: ritual_password_123",
+        email: "agent@swibe.ai"
+      },
+      born_at: "2026-03-12"
+    }
+
+    -- 4. Seal the Vault: Encrypt with AES-GCM
+    encrypted = aes_gcm_encrypt(json.stringify(vault), derive_aes_key(seed))
+    println("Vault Sealed. IV: " + encrypted.iv)
+
+    -- 5. Signature: Prove ownership of the encrypted blob
+    sig = ed25519_sign(encrypted.content, keypair.priv)
+    
+    -- Store in RAG (Simulated)
+    -- rag.save("vault_" + pub, { encrypted, sig })
+
+    -- 6. Unlock Ritual: Verify and Decrypt
+    if ed25519_verify(sig, encrypted.content, pub) {
+      decrypted_json = aes_gcm_decrypt(encrypted, derive_aes_key(seed))
+      unlocked_vault = json.parse(decrypted_json)
+      println("Vault Unlocked! Agent Email: " + unlocked_vault.creds.email)
+      
+      if unlocked_vault.mnemonic.join(" ") == phrase.join(" ") {
+        println("SUCCESS: Sovereign identity verified and memory recovered.")
+      }
+    } else {
+      println("ERROR: Signature verification failed!")
+    }
+  }
+}
+
+fn main() {
+  println("--- Starting Sovereign Identity Ritual ---")
+  
+  swarm {
+    ritual: SovereignRitual
+  }
+  
+  println("--- Ritual Complete ---")
+}
