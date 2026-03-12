@@ -1,18 +1,20 @@
 # Swibe: Agent-Native Scripting
 
-**Birth, secure, and heal full applications with one sentence.**
+**Autonomous swarms, self-healing loops, and world creation from one sentence.**
 
-Swibe is an AI-native language where autonomous apps and swarms are first-class citizens. It allows agents to architect, build, deploy, and self-heal entire applications autonomously within secure sandboxes.
+Swibe is a language where agents, prompts, memory, and secure execution are first-class citizens. Write declarative agentic code that compiles to 18 targets, runs self-repairing swarms, and persists state across sessions.
+
+In v0.3 “App Genesis”, Swibe gained the ability to birth full applications autonomously — but that is just one expression of its power.
 
 ## Features
 
--   **App Primitive**: Declare full applications with `app { ... }`.
--   **Swarm Orchestration**: Multi-agent pipelines (Architect, Builder, Tagger, Guard, etc.).
--   **Autonomous Loops**: Self-healing via `loop until goal: "..."`.
--   **Secure Sandbox**: Privacy-first execution with `secure { ... }`.
--   **Persistent RAG**: Long-term memory for apps and agents.
--   **Multi-Target**: Compiles to 18 targets (JS, Python, Rust, Go, Move, etc.).
--   **Self-Healing**: Applications that monitor logs and auto-patch bugs in the dark.
+- **Agent Primitives** — `swarm`, `skill`, `secure`, `loop until goal`
+- **Prompt Splicing** — `%%` blocks with AST integration
+- **App Primitive** — Declare and birth full apps in one breath (`app { ... }`)
+- **Self-Healing Loops** — Agents that monitor and repair themselves
+- **Persistent RAG** — Causal memory that survives across runs
+- **Secure Sandbox** — Privacy-first execution with resource limits
+- **18 Compilation Targets** — JS, Python, Rust, Go, Move, and more
 
 ## Installation
 
@@ -20,52 +22,27 @@ Swibe is an AI-native language where autonomous apps and swarms are first-class 
 npm i -g @bino-elgua/swibe
 ```
 
-## Usage
-
-Run a Swibe script:
-```bash
-swibe run examples/todo-app.swibe
-```
-
-## Example: World Genesis (`family-album.swibe`)
-
-A private family photo album born from a single vision. It features auto-tagging, encrypted storage, and an autonomous self-healing loop.
+## Quick Example: World Genesis (Family Photo Album)
 
 ```swibe
-skill VisionTagger {
-  prompt: "Analyze image and generate tags: people, place, date, mood"
-  tools: ["image_reader", "vision_model"]
-}
-
-skill PrivacyGuard {
-  secure {
-    encrypt_storage()
-    no_external_upload()
-  }
-}
-
 app {
-  type: "photo-album",
-  need: "private family photo album with auto-tagging. local-first, encrypted.",
+  type: "photo-album"
+  need: "private family album with auto-tagging, local-first, encrypted"
   platform: "web"
 }
+```
 
-swarm {
-  architect: "Design UI + backend" =>
-  builder: "Generate code + encryption" =>
-  tagger: VisionTagger =>
-  guard: PrivacyGuard =>
-  healer: "Monitor and auto-patch" =>
-  runner: "Deploy and return URL"
-}
+Run it:
+```bash
+swibe run examples/family-album.swibe
 ```
 
 ## Core Philosophies
 
--   **Vibe First**: Natural language prompts are valid syntax.
--   **AI Native**: LLM calls and RAG queries are built-in.
--   **Safe by Default**: Memory safety and secure execution blocks.
--   **Genesis Release**: The threshold where the tool becomes the parent.
+- **Agent-First** — Agents and autonomous behavior are native syntax
+- **Self-Healing** — Code that fixes itself in the dark
+- **Safe by Default** — Secure blocks and memory safety built-in
+- **Genesis Release** — The threshold where the language becomes a creator
 
 ---
 🪞👁️🌓🌀📸  
