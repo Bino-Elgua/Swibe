@@ -1,9 +1,9 @@
 {
-  "name": "vibe-language",
-  "displayName": "Vibe Language",
+  "name": "swibeuage",
+  "displayName": "Swibe Language",
   "description": "AI-native programming language support for VSCode",
   "version": "0.1.0",
-  "publisher": "vibe-lang",
+  "publisher": "swibe",
   "license": "MIT",
   "engines": {
     "vscode": "^1.70.0"
@@ -15,52 +15,52 @@
     "Linters"
   ],
   "keywords": [
-    "vibe",
+    "swibe",
     "ai",
     "programming language",
     "compiler"
   ],
   "activationEvents": [
-    "onLanguage:vibe"
+    "onLanguage:swibe"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "languages": [
       {
-        "id": "vibe",
+        "id": "swibe",
         "aliases": [
-          "Vibe",
-          "vibe"
+          "Swibe",
+          "swibe"
         ],
         "extensions": [
-          ".vibe"
+          ".swibe"
         ],
         "configuration": "./language-configuration.json"
       }
     ],
     "grammars": [
       {
-        "language": "vibe",
-        "scopeName": "source.vibe",
-        "path": "./syntaxes/vibe.tmLanguage.json"
+        "language": "swibe",
+        "scopeName": "source.swibe",
+        "path": "./syntaxes/swibe.tmLanguage.json"
       }
     ],
     "snippets": [
       {
-        "language": "vibe",
-        "path": "./snippets/vibe.json"
+        "language": "swibe",
+        "path": "./snippets/swibe.json"
       }
     ],
     "themes": [
       {
-        "label": "Vibe Dark",
+        "label": "Swibe Dark",
         "uiTheme": "vs-dark",
-        "path": "./themes/vibe-dark.json"
+        "path": "./themes/swibe-dark.json"
       },
       {
-        "label": "Vibe Light",
+        "label": "Swibe Light",
         "uiTheme": "vs",
-        "path": "./themes/vibe-light.json"
+        "path": "./themes/swibe-light.json"
       }
     ]
   },

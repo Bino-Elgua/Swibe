@@ -1,7 +1,7 @@
 {
-  "name": "vibe-playground",
+  "name": "swibe-playground",
   "version": "0.1.0",
-  "description": "Web-based IDE for Vibe language",
+  "description": "Web-based IDE for Swibe language",
   "type": "module",
   "scripts": {
     "dev": "vite",

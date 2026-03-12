@@ -1,8 +1,8 @@
-# Vibe Language - Complete AI Support
+# Swibe Language - Complete AI Support
 
 ## Executive Summary
 
-Vibe is now a **universal AI compiler** that:
+Swibe is now a **universal AI compiler** that:
 - **Compiles to 18 programming languages**
 - **Integrates with 20+ AI frameworks and tools**
 - **Supports all major AI paradigms**: LLM, ML/DL, Symbolic, Data Science, Vision, NLP
@@ -151,9 +151,9 @@ Vibe is now a **universal AI compiler** that:
 
 ## Example: Complete AI Pipeline
 
-### Single Vibe Source Code
+### Single Swibe Source Code
 
-```vibe
+```swibe
 -- Data loading & processing
 fn load_data(path: str) -> DataFrame {
   %% use pandas to load and clean CSV data
@@ -187,22 +187,22 @@ fn run_analysis(dataset: str) -> Report {
 
 ```bash
 # Production Python service
-npm run compile pipeline.vibe --target python
+npm run compile pipeline.swibe --target python
 
 # JavaScript web app
-npm run compile pipeline.vibe --target javascript
+npm run compile pipeline.swibe --target javascript
 
 # High-performance Go backend
-npm run compile pipeline.vibe --target go
+npm run compile pipeline.swibe --target go
 
 # Data science in Julia
-npm run compile pipeline.vibe --target julia
+npm run compile pipeline.swibe --target julia
 
 # R statistical analysis
-npm run compile pipeline.vibe --target r
+npm run compile pipeline.swibe --target r
 
 # Symbolic reasoning in Prolog
-npm run compile pipeline.vibe --target prolog
+npm run compile pipeline.swibe --target prolog
 ```
 
 Each target generates **idiomatic, production-ready code** for that language with all AI tool integrations!
@@ -218,8 +218,8 @@ Each target generates **idiomatic, production-ready code** for that language wit
 - **Symbolic AI?** → Prolog/Lisp
 - **Web AI?** → JavaScript
 
-### 2. Write Vibe Code
-```vibe
+### 2. Write Swibe Code
+```swibe
 fn my_ai_app() {
   %% prompts are your algorithm
   %% tools are just library calls
@@ -228,7 +228,7 @@ fn my_ai_app() {
 
 ### 3. Compile to Target
 ```bash
-npm run compile app.vibe --target <language>
+npm run compile app.swibe --target <language>
 ```
 
 ### 4. Use AI Tools
@@ -246,7 +246,7 @@ import pandas as pd
 ## Architecture
 
 ```
-Vibe Source Code
+Swibe Source Code
     ↓
 Lexer (tokenization)
     ↓
@@ -330,7 +330,7 @@ Production-Ready Code
 
 ## Conclusion
 
-**Vibe Language is the ultimate bridge between:**
+**Swibe Language is the ultimate bridge between:**
 - AI algorithm design (prompts)
 - Language choice (18 targets)
 - Tool integration (20+ frameworks)

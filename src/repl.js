@@ -1,6 +1,6 @@
 /**
- * Vibe REPL
- * Interactive shell for Vibe language
+ * Swibe REPL
+ * Interactive shell for Swibe language
  */
 
 import readline from 'readline';
@@ -9,7 +9,7 @@ import { Parser } from './parser.js';
 import { Compiler } from './compiler.js';
 import { LLMIntegration, RAGIntegration, Agent } from './llm-integration.js';
 
-class VibeREPL {
+class SwibeREPL {
   constructor() {
     this.rl = readline.createInterface({
       input: process.stdin,
@@ -22,14 +22,14 @@ class VibeREPL {
   }
 
   start() {
-    console.log('🎵 Vibe Language REPL v0.1.0');
+    console.log('🎵 Swibe Language REPL v0.1.0');
     console.log('Type "help" for commands, "exit" to quit\n');
 
     this.prompt();
   }
 
   prompt() {
-    this.rl.question('vibe> ', async (input) => {
+    this.rl.question('swibe> ', async (input) => {
       input = input.trim();
 
       if (!input) {
@@ -90,7 +90,7 @@ class VibeREPL {
       return;
     }
 
-    // Try to parse as Vibe code
+    // Try to parse as Swibe code
     try {
       const lexer = new Lexer(input);
       const tokens = lexer.tokenize();
@@ -120,7 +120,7 @@ class VibeREPL {
     console.log('Generating code from prompt...');
     try {
       const code = await this.llm.generateCode(prompt, {
-        targetLanguage: 'vibe',
+        targetLanguage: 'swibe',
       });
       console.log('Generated code:');
       console.log(code);
@@ -159,28 +159,28 @@ class VibeREPL {
 
   showHelp() {
     console.log(`
-Vibe REPL Commands:
+Swibe REPL Commands:
   help              - Show this help
   history           - Show command history
   exit              - Exit REPL
   
-  compile <code>    - Compile Vibe code to JavaScript
+  compile <code>    - Compile Swibe code to JavaScript
   ai <prompt>       - Generate code from natural language
   rag <query>       - Search knowledge base
-  load <file>       - Load and compile a .vibe file
+  load <file>       - Load and compile a .swibe file
   
 Examples:
-  vibe> fn add(a: i32, b: i32) -> i32 { a + b }
-  vibe> ai create a fibonacci function
-  vibe> compile fn main() { print("hello") }
-  vibe> load examples/hello.vibe
+  swibe> fn add(a: i32, b: i32) -> i32 { a + b }
+  swibe> ai create a fibonacci function
+  swibe> compile fn main() { print("hello") }
+  swibe> load examples/hello.swibe
     `);
   }
 }
 
 // Main
 async function main() {
-  const repl = new VibeREPL();
+  const repl = new SwibeREPL();
   repl.start();
 }
 
@@ -189,4 +189,4 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   main().catch(console.error);
 }
 
-export { VibeREPL };
+export { SwibeREPL };

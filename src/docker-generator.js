@@ -60,9 +60,9 @@ ${language === 'go' ? 'CMD ["./app"]' : ''}
       compose.services.db = {
         image: 'postgres:15',
         environment: {
-          POSTGRES_DB: 'vibe_db',
-          POSTGRES_USER: 'vibe',
-          POSTGRES_PASSWORD: 'vibe'
+          POSTGRES_DB: 'swibe_db',
+          POSTGRES_USER: 'swibe',
+          POSTGRES_PASSWORD: 'swibe'
         },
         ports: ['5432:5432'],
         volumes: ['db_data:/var/lib/postgresql/data'],
@@ -112,7 +112,7 @@ async function handleRequest(action, data) {
    * Generate Google Cloud Function
    */
   generateGoogleCloudFunction() {
-    return `exports.vibeHandler = async (req, res) => {
+    return `exports.swibeHandler = async (req, res) => {
   try {
     const { action, data } = req.body;
     
@@ -175,9 +175,9 @@ LOG_LEVEL=info
 # Database
 DB_HOST=localhost
 DB_PORT=5432
-DB_NAME=vibe_db
-DB_USER=vibe
-DB_PASSWORD=vibe
+DB_NAME=swibe_db
+DB_USER=swibe
+DB_PASSWORD=swibe
 
 # API Keys
 API_KEY=your_api_key_here
@@ -199,14 +199,14 @@ AZURE_CONNECTION_STRING=
   /**
    * Generate systemd service file
    */
-  generateSystemdService(appName = 'vibe-app') {
+  generateSystemdService(appName = 'swibe-app') {
     return `[Unit]
-Description=Vibe Application
+Description=Swibe Application
 After=network.target
 
 [Service]
 Type=simple
-User=vibe
+User=swibe
 WorkingDirectory=/opt/${appName}
 ExecStart=/usr/bin/node /opt/${appName}/app.js
 Restart=on-failure

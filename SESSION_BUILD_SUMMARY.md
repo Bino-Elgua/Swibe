@@ -1,4 +1,4 @@
-# Vibe Language - Build Session Summary
+# Swibe Language - Build Session Summary
 
 **Date:** December 5, 2025  
 **Duration:** Single Session  
@@ -15,10 +15,10 @@
 **Files Created:**
 - `vscode-extension/extension.ts` - Main extension entry point (220+ lines)
 - `vscode-extension/language-configuration.json` - Language config (47 lines)
-- `vscode-extension/syntaxes/vibe.tmLanguage.json` - TextMate grammar (120+ lines)
-- `vscode-extension/snippets/vibe.json` - 9 code templates
-- `vscode-extension/themes/vibe-dark.json` - Dark theme
-- `vscode-extension/themes/vibe-light.json` - Light theme
+- `vscode-extension/syntaxes/swibe.tmLanguage.json` - TextMate grammar (120+ lines)
+- `vscode-extension/snippets/swibe.json` - 9 code templates
+- `vscode-extension/themes/swibe-dark.json` - Dark theme
+- `vscode-extension/themes/swibe-light.json` - Light theme
 
 **Features:**
 - ✅ Syntax highlighting (keywords, strings, numbers, operators)
@@ -35,7 +35,7 @@
 
 ### 2. Web Playground (NEW ✅)
 **Status:** Production Ready  
-**Impact:** Browser-based IDE for learning and sharing Vibe code
+**Impact:** Browser-based IDE for learning and sharing Swibe code
 
 **Files Created:**
 - `web-playground/index.html` - UI structure
@@ -44,7 +44,7 @@
 - `web-playground/server.js` - Backend API server (300+ lines)
 
 **Features:**
-- ✅ Monaco editor integration with Vibe syntax support
+- ✅ Monaco editor integration with Swibe syntax support
 - ✅ Real-time compilation to 7 target languages
 - ✅ Target selector (JavaScript, Python, Rust, Go, Java, C++, TypeScript)
 - ✅ Code sharing via URL encoding
@@ -56,7 +56,7 @@
 - ✅ Auto-completion with snippets
 
 **API Endpoints:**
-- `POST /api/compile` - Compile Vibe code to target
+- `POST /api/compile` - Compile Swibe code to target
 - `POST /api/format` - Format code
 - `POST /api/parse` - Parse to AST
 - `GET /api/targets` - Available compilation targets
@@ -65,7 +65,7 @@
 
 **How to Run:**
 ```bash
-cd vibe-lang/web-playground
+cd swibe/web-playground
 npm install
 node server.js
 # Open http://localhost:3000
@@ -113,7 +113,7 @@ assertStringEndsWith(str, suffix, message)
 - `TestMacroParser` - Extracts test/bench from code
 
 **Example Usage:**
-```vibe
+```swibe
 #[test]
 fn test_addition() {
   assert!(2 + 2 == 4, "addition failed")
@@ -184,7 +184,7 @@ await runner.runBenchmarks();
 ## 📁 Repository Structure
 
 ```
-vibe-lang/
+swibe/
 ├── src/
 │   ├── lexer.js              (442 lines) ✅
 │   ├── parser.js             (584 lines) ✅
@@ -199,12 +199,12 @@ vibe-lang/
 │   ├── package.json
 │   ├── language-configuration.json
 │   ├── syntaxes/
-│   │   └── vibe.tmLanguage.json
+│   │   └── swibe.tmLanguage.json
 │   ├── snippets/
-│   │   └── vibe.json
+│   │   └── swibe.json
 │   └── themes/
-│       ├── vibe-dark.json
-│       └── vibe-light.json
+│       ├── swibe-dark.json
+│       └── swibe-light.json
 ├── web-playground/           ✅ NEW
 │   ├── index.html
 │   ├── app.js

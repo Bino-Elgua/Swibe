@@ -1,15 +1,15 @@
-# Vibe Language - Live Demo
+# Swibe Language - Live Demo
 
 ## Quick Demo (Copy & Paste)
 
 ### 1. Basic Function
 ```bash
-cat > demo.vibe << 'VIBE'
+cat > demo.swibe << 'VIBE'
 fn add(a: i32, b: i32) -> i32 { a + b }
 fn multiply(a: i32, b: i32) -> i32 { a * b }
 VIBE
 
-node src/index.js compile demo.vibe
+node src/index.js compile demo.swibe
 ```
 
 Output:
@@ -25,7 +25,7 @@ function multiply(a, b) {
 
 ### 2. Structs and Pattern Matching
 ```bash
-cat > demo2.vibe << 'VIBE'
+cat > demo2.swibe << 'VIBE'
 struct Point {
   x: i32,
   y: i32
@@ -38,7 +38,7 @@ enum Color {
 }
 VIBE
 
-node src/index.js compile demo2.vibe
+node src/index.js compile demo2.swibe
 ```
 
 Output:
@@ -55,13 +55,13 @@ const Color = { Red: 'Red', Green: 'Green', Blue: 'Blue' };
 
 ### 3. AI Generation (with prompts)
 ```bash
-cat > demo3.vibe << 'VIBE'
+cat > demo3.swibe << 'VIBE'
 fn fibonacci(n: i32) {
   %% generate fibonacci sequence up to n
 }
 VIBE
 
-node src/index.js compile demo3.vibe
+node src/index.js compile demo3.swibe
 ```
 
 Output includes:
@@ -71,13 +71,13 @@ Output includes:
 
 ### 4. Compile to Python
 ```bash
-cat > demo.vibe << 'VIBE'
+cat > demo.swibe << 'VIBE'
 fn greet(name: str) {
   print("Hello, " + name)
 }
 VIBE
 
-node src/index.js compile demo.vibe --target python
+node src/index.js compile demo.swibe --target python
 ```
 
 Output:
@@ -88,7 +88,7 @@ def greet(name):
 
 ### 5. Compile to Rust
 ```bash
-node src/index.js compile demo.vibe --target rust
+node src/index.js compile demo.swibe --target rust
 ```
 
 Output:
@@ -106,24 +106,24 @@ npm run repl
 
 Then try:
 ```
-vibe> fn hello() { print("world") }
-vibe> hello()
+swibe> fn hello() { print("world") }
+swibe> hello()
 world
 
-vibe> struct User { id: u64, name: str }
-vibe> user = User { id: 1, name: "Alice" }
+swibe> struct User { id: u64, name: str }
+swibe> user = User { id: 1, name: "Alice" }
 
-vibe> fn double(x: i32) -> i32 { x * 2 }
-vibe> double(21)
+swibe> fn double(x: i32) -> i32 { x * 2 }
+swibe> double(21)
 42
 
-vibe> %% write a function that checks if a number is prime
+swibe> %% write a function that checks if a number is prime
 ```
 
 ## Advanced Examples
 
 ### Multiple Dispatch
-```vibe
+```swibe
 fn process(x: i32) -> str { "integer" }
 fn process(x: str) -> str { "string" }
 fn process(x: [f64]) -> str { "float array" }
@@ -137,7 +137,7 @@ function process(x) { return "float array"; }
 ```
 
 ### Option Types (No Nulls)
-```vibe
+```swibe
 fn divide(a: i32, b: i32) -> Option<i32> {
   if b == 0 { None } else { Some(a / b) }
 }
@@ -149,7 +149,7 @@ match divide(10, 2) {
 ```
 
 ### Pipelines
-```vibe
+```swibe
 data
   |> filter(x => x > 5)
   |> map(x => x * 2)
@@ -181,11 +181,11 @@ console.log('Output size: ' + result.length + ' bytes');
 ## Feature Showcase
 
 ### All Type Annotations
-```vibe
+```swibe
 -- Primitives
 x: i32 = 42
 y: f64 = 3.14
-name: str = "Vibe"
+name: str = "Swibe"
 flag: bool = true
 
 -- Collections
@@ -201,7 +201,7 @@ first: fn<T>(arr: [T]) -> T
 ```
 
 ### All Operators
-```vibe
+```swibe
 a + b      -- addition
 a - b      -- subtraction
 a * b      -- multiplication
@@ -223,7 +223,7 @@ x |> f     -- pipeline
 ```
 
 ### All Control Flow
-```vibe
+```swibe
 if condition {
   -- then
 } else {
@@ -248,30 +248,30 @@ while condition {
 
 ```bash
 # Compile and run
-node src/index.js compile hello.vibe | node -
+node src/index.js compile hello.swibe | node -
 
 # Count tokens
-node -e "const {Lexer}=require('./src/lexer.js');const l=new Lexer(require('fs').readFileSync('hello.vibe','utf8'));console.log(l.tokenize().length)"
+node -e "const {Lexer}=require('./src/lexer.js');const l=new Lexer(require('fs').readFileSync('hello.swibe','utf8'));console.log(l.tokenize().length)"
 
 # Test multiple targets
-for target in javascript python rust; do echo "=== $target ==="; node src/index.js compile examples/hello.vibe --target $target | head -3; done
+for target in javascript python rust; do echo "=== $target ==="; node src/index.js compile examples/hello.swibe --target $target | head -3; done
 ```
 
 ## Copy-Paste to Try Now
 
 ```bash
 # 1. Create test file
-echo 'fn main() { print("Hello Vibe!") }' > test.vibe
+echo 'fn main() { print("Hello Swibe!") }' > test.swibe
 
 # 2. Compile to JavaScript
-node vibe-lang/src/index.js compile test.vibe
+node swibe/src/index.js compile test.swibe
 
 # 3. Compile to Python
-node vibe-lang/src/index.js compile test.vibe --target python
+node swibe/src/index.js compile test.swibe --target python
 
 # 4. View examples
-cat vibe-lang/examples/hello.vibe
-cat vibe-lang/examples/ai-app.vibe
+cat swibe/examples/hello.swibe
+cat swibe/examples/ai-app.swibe
 
 # 5. Run REPL
 npm run repl
@@ -279,4 +279,4 @@ npm run repl
 
 ---
 
-**That's the demo! Ready to build with Vibe?**
+**That's the demo! Ready to build with Swibe?**

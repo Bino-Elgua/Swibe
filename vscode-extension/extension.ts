@@ -1,5 +1,5 @@
 /**
- * Vibe Language VSCode Extension
+ * Swibe Language VSCode Extension
  * Syntax highlighting, completion, hover info, diagnostics
  */
 
@@ -22,47 +22,47 @@ export function activate(context: vscode.ExtensionContext) {
   };
 
   const clientOptions: LanguageClientOptions = {
-    documentSelector: [{ scheme: 'file', language: 'vibe' }],
+    documentSelector: [{ scheme: 'file', language: 'swibe' }],
     synchronize: {
-      fileEvents: vscode.workspace.createFileSystemWatcher('**/.vibe')
+      fileEvents: vscode.workspace.createFileSystemWatcher('**/.swibe')
     }
   };
 
-  client = new LanguageClient('vibe', 'Vibe Language Server', serverOptions, clientOptions);
+  client = new LanguageClient('swibe', 'Swibe Language Server', serverOptions, clientOptions);
 
   // Start language server
   client.start();
 
   // Register hover provider
   context.subscriptions.push(
-    vscode.languages.registerHoverProvider('vibe', new VibeHoverProvider())
+    vscode.languages.registerHoverProvider('swibe', new SwibeHoverProvider())
   );
 
   // Register completion provider
   context.subscriptions.push(
-    vscode.languages.registerCompletionItemProvider('vibe', new VibeCompletionProvider(), '.', '[')
+    vscode.languages.registerCompletionItemProvider('swibe', new SwibeCompletionProvider(), '.', '[')
   );
 
   // Register definition provider
   context.subscriptions.push(
-    vscode.languages.registerDefinitionProvider('vibe', new VibeDefinitionProvider())
+    vscode.languages.registerDefinitionProvider('swibe', new SwibeDefinitionProvider())
   );
 
   // Register symbol provider
   context.subscriptions.push(
-    vscode.languages.registerDocumentSymbolProvider('vibe', new VibeSymbolProvider())
+    vscode.languages.registerDocumentSymbolProvider('swibe', new SwibeSymbolProvider())
   );
 
   // Compile command
   context.subscriptions.push(
-    vscode.commands.registerCommand('vibe.compile', async () => {
+    vscode.commands.registerCommand('swibe.compile', async () => {
       const editor = vscode.window.activeTextEditor;
       if (!editor) return;
 
-      const vibeModule = await import('./vibe-compiler');
-      const output = vibeModule.compile(editor.document.getText());
+      const swibeModule = await import('./swibe-compiler');
+      const output = swibeModule.compile(editor.document.getText());
       
-      const channel = vscode.window.createOutputChannel('Vibe Compiler');
+      const channel = vscode.window.createOutputChannel('Swibe Compiler');
       channel.appendLine(output);
       channel.show();
     })
@@ -70,12 +70,12 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Format command
   context.subscriptions.push(
-    vscode.commands.registerCommand('vibe.format', async () => {
+    vscode.commands.registerCommand('swibe.format', async () => {
       const editor = vscode.window.activeTextEditor;
       if (!editor) return;
 
-      const vibeModule = await import('./vibe-compiler');
-      const formatted = vibeModule.format(editor.document.getText());
+      const swibeModule = await import('./swibe-compiler');
+      const formatted = swibeModule.format(editor.document.getText());
       
       editor.edit(editBuilder => {
         const fullRange = new vscode.Range(
@@ -95,7 +95,7 @@ export function deactivate(): Thenable<void> | undefined {
   return client.stop();
 }
 
-class VibeHoverProvider implements vscode.HoverProvider {
+class SwibeHoverProvider implements vscode.HoverProvider {
   async provideHover(document: vscode.TextDocument, position: vscode.Position): Promise<vscode.Hover | null> {
     const range = document.getWordRangeAtPosition(position);
     if (!range) return null;
@@ -129,7 +129,7 @@ class VibeHoverProvider implements vscode.HoverProvider {
   }
 }
 
-class VibeCompletionProvider implements vscode.CompletionItemProvider {
+class SwibeCompletionProvider implements vscode.CompletionItemProvider {
   provideCompletionItems(document: vscode.TextDocument, position: vscode.Position): vscode.CompletionItem[] {
     const completions: vscode.CompletionItem[] = [];
 
@@ -161,7 +161,7 @@ class VibeCompletionProvider implements vscode.CompletionItemProvider {
   }
 }
 
-class VibeDefinitionProvider implements vscode.DefinitionProvider {
+class SwibeDefinitionProvider implements vscode.DefinitionProvider {
   provideDefinition(document: vscode.TextDocument, position: vscode.Position): vscode.Location | null {
     // Parse document and find definitions
     // Return location of definition
@@ -169,7 +169,7 @@ class VibeDefinitionProvider implements vscode.DefinitionProvider {
   }
 }
 
-class VibeSymbolProvider implements vscode.DocumentSymbolProvider {
+class SwibeSymbolProvider implements vscode.DocumentSymbolProvider {
   provideDocumentSymbols(document: vscode.TextDocument): vscode.DocumentSymbol[] {
     const symbols: vscode.DocumentSymbol[] = [];
     const text = document.getText();

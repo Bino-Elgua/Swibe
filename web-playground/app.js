@@ -1,5 +1,5 @@
-// Vibe Playground - Frontend
-class VibePlayground {
+// Swibe Playground - Frontend
+class SwibePlayground {
   constructor() {
     this.editor = null;
     this.output = document.getElementById('output');
@@ -20,7 +20,7 @@ class VibePlayground {
     require(['vs/editor/editor.main'], () => {
       this.editor = monaco.editor.create(document.getElementById('editor'), {
         value: this.getDefaultCode(),
-        language: 'vibe',
+        language: 'swibe',
         theme: 'vs-dark',
         automaticLayout: true,
         fontSize: 14,
@@ -31,7 +31,7 @@ class VibePlayground {
         formatOnPaste: true
       });
       
-      // Add Vibe language support
+      // Add Swibe language support
       this.setupLanguage();
     });
 
@@ -50,11 +50,11 @@ class VibePlayground {
   }
 
   setupLanguage() {
-    // Register Vibe language
-    monaco.languages.register({ id: 'vibe' });
+    // Register Swibe language
+    monaco.languages.register({ id: 'swibe' });
     
     // Syntax highlighting
-    monaco.languages.setMonacoTokensProvider('vibe', {
+    monaco.languages.setMonacoTokensProvider('swibe', {
       tokenizer: {
         root: [
           [/\bfn\b/, 'keyword'],
@@ -81,7 +81,7 @@ class VibePlayground {
     });
 
     // Auto-completion
-    monaco.languages.registerCompletionItemProvider('vibe', {
+    monaco.languages.registerCompletionItemProvider('swibe', {
       provideCompletionItems: (model, position) => {
         return {
           suggestions: [
@@ -122,7 +122,7 @@ class VibePlayground {
   }
 
   getDefaultCode() {
-    return `// Welcome to Vibe Playground
+    return `// Welcome to Swibe Playground
 // Compile to JavaScript, Python, Rust, and more!
 
 fn greet(name: str) -> str {
@@ -208,5 +208,5 @@ fn main() {
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-  new VibePlayground();
+  new SwibePlayground();
 });

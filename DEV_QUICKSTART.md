@@ -1,4 +1,4 @@
-# Vibe Language - Developer Quick Start
+# Swibe Language - Developer Quick Start
 
 **Current Status:** Phase 1 - 67% Complete (5/9 features)  
 **Last Updated:** December 5, 2025
@@ -7,15 +7,15 @@
 
 ## 🚀 Quick Commands
 
-### Compile Vibe to JavaScript
+### Compile Swibe to JavaScript
 ```bash
-cd vibe-lang
-node src/index.js compile program.vibe
+cd swibe
+node src/index.js compile program.swibe
 ```
 
 ### Run Web Playground
 ```bash
-cd vibe-lang/web-playground
+cd swibe/web-playground
 npm install
 node server.js
 # Open http://localhost:3000
@@ -23,13 +23,13 @@ node server.js
 
 ### Run Tests
 ```bash
-cd vibe-lang
+cd swibe
 node src/index.js test tests/
 ```
 
 ### Interactive REPL
 ```bash
-cd vibe-lang
+cd swibe
 node src/index.js repl
 ```
 
@@ -38,7 +38,7 @@ node src/index.js repl
 ## 📁 Project Structure
 
 ```
-vibe-lang/
+swibe/
 ├── src/
 │   ├── index.js              # CLI entry point
 │   ├── lexer.js              # Tokenizer (442 lines)
@@ -52,8 +52,8 @@ vibe-lang/
 ├── vscode-extension/         # VSCode plugin
 │   ├── extension.ts
 │   ├── language-configuration.json
-│   ├── syntaxes/vibe.tmLanguage.json
-│   ├── snippets/vibe.json
+│   ├── syntaxes/swibe.tmLanguage.json
+│   ├── snippets/swibe.json
 │   └── themes/
 ├── web-playground/           # Browser IDE
 │   ├── index.html
@@ -99,14 +99,14 @@ vibe-lang/
 ## 📝 Language Basics
 
 ### Hello World
-```vibe
+```swibe
 fn main() {
   println("Hello, World!")
 }
 ```
 
 ### Functions
-```vibe
+```swibe
 fn greet(name: str) -> str {
   "Hello, " + name
 }
@@ -117,7 +117,7 @@ fn add(a: i32, b: i32) -> i32 {
 ```
 
 ### Variables & Types
-```vibe
+```swibe
 let x = 42           // i32
 let name = "Alice"   // str
 let pi = 3.14        // f64
@@ -126,7 +126,7 @@ let items = [1,2,3]  // array
 ```
 
 ### Control Flow
-```vibe
+```swibe
 // If-else
 if x > 0 {
   println("positive")
@@ -153,7 +153,7 @@ match value {
 ```
 
 ### Structs & Enums
-```vibe
+```swibe
 struct Person {
   name: str,
   age: i32
@@ -167,7 +167,7 @@ enum Color {
 ```
 
 ### AI Prompts
-```vibe
+```swibe
 fn classify(text: str) {
   %% classify this text as positive, negative, or neutral
 }
@@ -178,7 +178,7 @@ fn summarize(article: str) -> str {
 ```
 
 ### Testing
-```vibe
+```swibe
 #[test]
 fn test_addition() {
   assert!(2 + 2 == 4, "math broken")
@@ -267,7 +267,7 @@ format(template, args...)
 
 ### Run Tests
 ```bash
-cd vibe-lang
+cd swibe
 node -e "
 const { TestRunner, Assertions } = require('./src/testing');
 const runner = new TestRunner();
@@ -302,10 +302,10 @@ assertStringContains(str, substring, message)
    cd vscode-extension
    npm install
    npm run compile
-   # Copy to ~/.vscode/extensions/vibe-lang-0.1.0/
+   # Copy to ~/.vscode/extensions/swibe-0.1.0/
    ```
 
-2. **Create `.vibe` file** - Extension auto-activates
+2. **Create `.swibe` file** - Extension auto-activates
 
 3. **Features Available:**
    - Syntax highlighting
@@ -328,7 +328,7 @@ node server.js
 ```
 
 ### Features
-- Write Vibe code in Monaco editor
+- Write Swibe code in Monaco editor
 - Click "Compile" or Ctrl+Enter
 - Select target language
 - Share via URL copy
@@ -410,4 +410,4 @@ Then Phase 2:
 
 ---
 
-**Happy coding with Vibe! 🎵**
+**Happy coding with Swibe! 🎵**

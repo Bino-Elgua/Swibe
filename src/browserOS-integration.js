@@ -1,12 +1,12 @@
 /**
- * BrowserOS Integration for Vibe Language
- * Enables Vibe apps to deploy as Progressive Web Apps (PWA)
+ * BrowserOS Integration for Swibe Language
+ * Enables Swibe apps to deploy as Progressive Web Apps (PWA)
  * Supports app manifests, widgets, file system integration, and desktop generation
  * Lines: 500+
  */
 
 class BrowserOSIntegration {
-  constructor(appName = 'VibeApp', version = '0.1.0') {
+  constructor(appName = 'SwibeApp', version = '0.1.0') {
     this.appName = appName;
     this.version = version;
     this.manifest = null;
@@ -24,7 +24,7 @@ class BrowserOSIntegration {
   generateManifest(config = {}) {
     const {
       shortName = this.appName,
-      description = `${this.appName} - Built with Vibe`,
+      description = `${this.appName} - Built with Swibe`,
       startUrl = '/',
       display = 'standalone',
       backgroundColor = '#ffffff',
@@ -79,7 +79,7 @@ class BrowserOSIntegration {
       ],
       protocol_handlers: [
         {
-          protocol: 'web+vibe',
+          protocol: 'web+swibe',
           url: '/protocol?url=%s'
         }
       ]
@@ -304,8 +304,8 @@ class BrowserOSIntegration {
    */
   generateServiceWorker() {
     return `
-// Vibe BrowserOS Service Worker
-const CACHE_NAME = 'vibe-app-v1';
+// Swibe BrowserOS Service Worker
+const CACHE_NAME = 'swibe-app-v1';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -416,7 +416,7 @@ self.addEventListener('message', event => {
     return `
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="${this.manifest?.description || 'Vibe App'}">
+<meta name="description" content="${this.manifest?.description || 'Swibe App'}">
 <meta name="theme-color" content="${this.manifest?.theme_color || '#2196F3'}">
 
 <!-- PWA Meta Tags -->

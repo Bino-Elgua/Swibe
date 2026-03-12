@@ -1,0 +1,26 @@
+skill Architect {
+  prompt: "Design minimal viable app for: simple daily planner"
+}
+
+skill Builder {
+  prompt: "Generate complete Swibe code for the app (include UI if web)"
+}
+
+skill Healer {
+  prompt: "Monitor logs and auto-patch bugs"
+}
+
+app {
+  type: "todo",
+  need: "simple daily planner for a busy mom with 3 kids",
+  platform: "web"
+}
+
+swarm {
+  architect: Architect =>
+  builder: Builder =>
+  healer: Healer =>
+  runner: "Deploy to Vercel/Netlify and return live URL"
+}
+
+trace("App spun up and self-healing")

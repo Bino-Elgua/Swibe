@@ -1,5 +1,5 @@
 /**
- * Vibe Web Playground - Main App Component
+ * Swibe Web Playground - Main App Component
  * Real-time compilation, syntax highlighting, multiple targets
  */
 
@@ -17,7 +17,7 @@ interface PlaygroundState {
 
 export default function App() {
   const [state, setState] = React.useState<PlaygroundState>({
-    code: `-- Welcome to Vibe Playground!\nfn greet(name: str) -> str {\n  format("Hello, {}", name)\n}\n\nprint(greet("World"))`,
+    code: `-- Welcome to Swibe Playground!\nfn greet(name: str) -> str {\n  format("Hello, {}", name)\n}\n\nprint(greet("World"))`,
     target: 'javascript',
     output: '',
     error: '',
@@ -81,7 +81,7 @@ export default function App() {
     <div className="playground">
       <header className="playground-header">
         <div className="logo">
-          <h1>🎵 Vibe Playground</h1>
+          <h1>🎵 Swibe Playground</h1>
           <p>AI-Native Programming Language IDE</p>
         </div>
         <div className="controls">
@@ -104,10 +104,10 @@ export default function App() {
 
       <div className="playground-container">
         <div className="editor-section">
-          <h2>Vibe Code</h2>
+          <h2>Swibe Code</h2>
           <Editor
             height="100%"
-            language="vibe"
+            language="swibe"
             theme="vs-dark"
             value={state.code}
             onChange={(value) => setState(prev => ({ ...prev, code: value || '' }))}
@@ -137,7 +137,7 @@ export default function App() {
       </div>
 
       <footer className="playground-footer">
-        <p>Vibe v0.1.0 | Compile to JavaScript, Python, or Rust</p>
+        <p>Swibe v0.1.0 | Compile to JavaScript, Python, or Rust</p>
       </footer>
     </div>
   );

@@ -198,7 +198,7 @@ class Compiler {
         return this.genJSSwarm(node);
 
       case 'AppDecl':
-        return `const __APP_CONFIG = { ${Object.entries(node.config).map(([k, v]) => `${k}: ${this.genJavaScript(v)}`).join(', ')} };\n(await println("📱 App Configured:", __APP_CONFIG));`;
+        return this.genJSApp(node);
 
       case 'SkillDecl':
         return this.genJSSkill(node);
@@ -305,6 +305,17 @@ class Compiler {
     return code;
   }
 
+  genJSApp(node) {
+    let code = `const __APP_CONFIG = {\n`;
+    // We assume keys are simple identifiers
+    for (const key in node.config) {
+      code += `  ${key}: ${this.genJavaScript(node.config[key])},\n`;
+    }
+    code += `};\n`;
+    code += `(await deploy_app(__APP_CONFIG));\n`;
+    return code;
+  }
+
   genJSSkill(node) {
     let code = `const ${node.name} = {\n`;
     code += `  type: "skill",\n`;
@@ -321,7 +332,7 @@ class Compiler {
   }
 
   genJSSecure(node) {
-    return `await sandbox.run(async () => {\n${this.indentCode(this.genJavaScript(node.body), 2)}\n});`;
+    return `await sandbox_run(async () => {\n${this.indentCode(this.genJavaScript(node.body), 2)}\n});`;
   }
 
   genJSLoopUntil(node) {

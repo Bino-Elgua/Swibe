@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Vibe Language Roadmap CLI
+ * Swibe Language Roadmap CLI
  * Track progress on all 28 integrations
  */
 
@@ -31,7 +31,7 @@ class RoadmapCLI {
   }
 
   status(phaseFilter = null) {
-    console.log('\n📊 Vibe Language Integration Roadmap\n');
+    console.log('\n📊 Swibe Language Integration Roadmap\n');
     console.log(`Last Updated: ${this.roadmap.lastUpdated}\n`);
 
     const phases = Object.entries(this.roadmap.phases);
@@ -267,9 +267,9 @@ Priority Distribution:
 
   help() {
     console.log(`
-Vibe Language Roadmap CLI
+Swibe Language Roadmap CLI
 
-Usage: vibe roadmap [command] [options]
+Usage: swibe roadmap [command] [options]
 
 Commands:
   status [phase]         Show roadmap status
@@ -279,13 +279,13 @@ Commands:
   help                   Show this help message
 
 Examples:
-  vibe roadmap status               # Full status
-  vibe roadmap status phase1         # Phase 1 only
-  vibe roadmap list-todos            # All TODOs
-  vibe roadmap list-todos HIGH       # High priority TODOs
-  vibe roadmap show 3                # Details for feature #3
-  vibe roadmap update 3 in-progress  # Mark as in progress
-  vibe roadmap update 3 complete     # Mark as complete
+  swibe roadmap status               # Full status
+  swibe roadmap status phase1         # Phase 1 only
+  swibe roadmap list-todos            # All TODOs
+  swibe roadmap list-todos HIGH       # High priority TODOs
+  swibe roadmap show 3                # Details for feature #3
+  swibe roadmap update 3 in-progress  # Mark as in progress
+  swibe roadmap update 3 complete     # Mark as complete
 
 Statuses: complete, in-progress, todo, blocked
     `);

@@ -1,5 +1,5 @@
 {
-  "project": "Vibe Language",
+  "project": "Swibe Language",
   "version": "0.5.0",
   "lastUpdated": "2025-12-05",
   "sessionNote": "Actual progress tracking - fake status removed",
@@ -75,10 +75,10 @@
           "files": [
             "vscode-extension/extension.ts",
             "vscode-extension/language-configuration.json",
-            "vscode-extension/syntaxes/vibe.tmLanguage.json",
-            "vscode-extension/snippets/vibe.json",
-            "vscode-extension/themes/vibe-dark.json",
-            "vscode-extension/themes/vibe-light.json"
+            "vscode-extension/syntaxes/swibe.tmLanguage.json",
+            "vscode-extension/snippets/swibe.json",
+            "vscode-extension/themes/swibe-dark.json",
+            "vscode-extension/themes/swibe-light.json"
           ]
         },
         {
@@ -315,7 +315,7 @@
           "estimatedWeek": 8,
           "dependencies": [1],
           "tasks": [
-            ".vibe.yml support",
+            ".swibe.yml support",
             "GitHub Actions",
             "GitLab CI",
             "Jenkins",
@@ -341,9 +341,9 @@
           "estimatedWeek": 8,
           "dependencies": [1],
           "tasks": [
-            "Python → Vibe",
-            "TypeScript → Vibe",
-            "Go → Vibe",
+            "Python → Swibe",
+            "TypeScript → Swibe",
+            "Go → Swibe",
             "AST mapping",
             "Partial conversion"
           ]

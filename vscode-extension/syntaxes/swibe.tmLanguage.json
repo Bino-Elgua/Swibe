@@ -1,7 +1,7 @@
 {
-  "name": "Vibe",
-  "scopeName": "source.vibe",
-  "fileTypes": ["vibe"],
+  "name": "Swibe",
+  "scopeName": "source.swibe",
+  "fileTypes": ["swibe"],
   "patterns": [
     { "include": "#comments" },
     { "include": "#strings" },
@@ -15,11 +15,11 @@
     "comments": {
       "patterns": [
         {
-          "name": "comment.line.double-slash.vibe",
+          "name": "comment.line.double-slash.swibe",
           "match": "//.*?$"
         },
         {
-          "name": "comment.block.vibe",
+          "name": "comment.block.swibe",
           "begin": "/\\*",
           "end": "\\*/"
         }
@@ -28,23 +28,23 @@
     "strings": {
       "patterns": [
         {
-          "name": "string.quoted.double.vibe",
+          "name": "string.quoted.double.swibe",
           "begin": "\"",
           "end": "\"",
           "patterns": [
-            { "name": "constant.character.escape.vibe", "match": "\\\\." }
+            { "name": "constant.character.escape.swibe", "match": "\\\\." }
           ]
         },
         {
-          "name": "string.quoted.single.vibe",
+          "name": "string.quoted.single.swibe",
           "begin": "'",
           "end": "'",
           "patterns": [
-            { "name": "constant.character.escape.vibe", "match": "\\\\." }
+            { "name": "constant.character.escape.swibe", "match": "\\\\." }
           ]
         },
         {
-          "name": "string.quoted.backtick.vibe",
+          "name": "string.quoted.backtick.swibe",
           "begin": "`",
           "end": "`"
         }
@@ -53,11 +53,11 @@
     "keywords": {
       "patterns": [
         {
-          "name": "keyword.control.vibe",
+          "name": "keyword.control.swibe",
           "match": "\\b(fn|struct|enum|impl|trait|type|if|else|while|for|loop|break|continue|return|match|async|await|pub|mut|const)\\b"
         },
         {
-          "name": "keyword.ai.vibe",
+          "name": "keyword.ai.swibe",
           "match": "%%|##|@|#\\[|\\]"
         }
       ]
@@ -65,11 +65,11 @@
     "functions": {
       "patterns": [
         {
-          "name": "entity.name.function.vibe",
+          "name": "entity.name.function.swibe",
           "match": "\\b(fn)\\s+([a-z_][a-z0-9_]*)\\b",
           "captures": {
-            "1": { "name": "keyword.control.vibe" },
-            "2": { "name": "entity.name.function.vibe" }
+            "1": { "name": "keyword.control.swibe" },
+            "2": { "name": "entity.name.function.swibe" }
           }
         }
       ]
@@ -77,7 +77,7 @@
     "types": {
       "patterns": [
         {
-          "name": "entity.name.type.vibe",
+          "name": "entity.name.type.swibe",
           "match": "\\b(i32|i64|f32|f64|str|bool|Option|Result|None|Some)\\b"
         }
       ]
@@ -85,7 +85,7 @@
     "numbers": {
       "patterns": [
         {
-          "name": "constant.numeric.vibe",
+          "name": "constant.numeric.swibe",
           "match": "\\b([0-9]+\\.?[0-9]*)\\b"
         }
       ]
@@ -93,7 +93,7 @@
     "operators": {
       "patterns": [
         {
-          "name": "keyword.operator.vibe",
+          "name": "keyword.operator.swibe",
           "match": "(\\+|-|\\*|/|%|=|==|!=|<|>|<=|>=|&&|\\|\\||!|::|->)"
         }
       ]

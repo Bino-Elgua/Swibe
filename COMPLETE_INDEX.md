@@ -1,4 +1,4 @@
-# 🎵 Vibe Language - Complete Project Index
+# 🎵 Swibe Language - Complete Project Index
 
 **Status:** ✅ ALL 28 FEATURES COMPLETE  
 **Total Code:** 7,500+ lines  
@@ -47,8 +47,8 @@
 - **vscode-extension/** - Full VSCode extension (production ready)
   - extension.ts - Extension logic
   - language-configuration.json - Language rules
-  - syntaxes/vibe.tmLanguage.json - Syntax highlighting
-  - snippets/vibe.json - Code snippets
+  - syntaxes/swibe.tmLanguage.json - Syntax highlighting
+  - snippets/swibe.json - Code snippets
   - themes/ - Color themes (dark & light)
 
 - **web-playground/** - Browser IDE (production ready)
@@ -190,15 +190,15 @@
 
 ## 🚀 Quick Commands
 
-### Compile Vibe Code
+### Compile Swibe Code
 ```bash
-cd vibe-lang
-node src/index.js compile program.vibe
+cd swibe
+node src/index.js compile program.swibe
 ```
 
 ### Run Web IDE
 ```bash
-cd vibe-lang/web-playground
+cd swibe/web-playground
 npm install
 node server.js
 # Open http://localhost:3000
@@ -206,7 +206,7 @@ node server.js
 
 ### Run Tests
 ```bash
-node src/index.js test tests/*.vibe
+node src/index.js test tests/*.swibe
 ```
 
 ### Interactive REPL
@@ -221,7 +221,7 @@ node src/index.js docs
 
 ### Format Code
 ```bash
-node src/index.js format program.vibe
+node src/index.js format program.swibe
 ```
 
 ---
@@ -229,21 +229,21 @@ node src/index.js format program.vibe
 ## 📚 Code Examples
 
 ### Hello World
-```vibe
+```swibe
 fn main() {
   println("Hello, World!")
 }
 ```
 
 ### With AI
-```vibe
+```swibe
 fn classify(text: str) {
   %% classify this text as positive or negative
 }
 ```
 
 ### API Endpoint
-```vibe
+```swibe
 #[api(method="GET", path="/users")]
 fn getUsers(id: i32) -> str {
   "User: " + id.str()
@@ -251,7 +251,7 @@ fn getUsers(id: i32) -> str {
 ```
 
 ### Database Table
-```vibe
+```swibe
 #[table]
 fn users(id: i32, name: str, email: str) {
   // Schema definition
@@ -259,7 +259,7 @@ fn users(id: i32, name: str, email: str) {
 ```
 
 ### Test
-```vibe
+```swibe
 #[test]
 fn testAddition() {
   assert!(2 + 2 == 4, "Math broken")
@@ -267,7 +267,7 @@ fn testAddition() {
 ```
 
 ### Agent
-```vibe
+```swibe
 #[agent(tools=["search", "calculate"])]
 fn smartAgent() {
   // Reasoning loop
@@ -279,7 +279,7 @@ fn smartAgent() {
 ## 🎯 File Organization
 
 ```
-vibe-lang/
+swibe/
 │
 ├── src/                           (Core language & tools)
 │   ├── index.js                   (CLI entry)
@@ -346,7 +346,7 @@ vibe-lang/
 
 ## 🎵 The Complete Vision
 
-Vibe Language is a fully realized, production-ready AI-native programming language with:
+Swibe Language is a fully realized, production-ready AI-native programming language with:
 
 1. **Complete Language** - Lexer, parser, compiler working
 2. **Smart Tools** - IDE, testing, documentation
@@ -362,7 +362,7 @@ Vibe Language is a fully realized, production-ready AI-native programming langua
 2. **Learn:** Review `VIBE_SPEC.md`
 3. **Explore:** Run web-playground
 4. **Understand:** Check `src/compiler.js` and `src/parser.js`
-5. **Build:** Create your first Vibe program
+5. **Build:** Create your first Swibe program
 6. **Deploy:** Use generators for APIs, databases, Docker
 
 ---
@@ -398,17 +398,17 @@ Vibe Language is a fully realized, production-ready AI-native programming langua
 
 | Resource | Path |
 |----------|------|
-| Main Docs | /vibe-lang/ALL_PHASES_COMPLETE.md |
-| Quick Start | /vibe-lang/DEV_QUICKSTART.md |
-| Language Spec | /vibe-lang/VIBE_SPEC.md |
-| Examples | /vibe-lang/examples/ |
-| Compiler | /vibe-lang/src/compiler.js |
-| VSCode Ext | /vibe-lang/vscode-extension/ |
-| Web IDE | /vibe-lang/web-playground/ |
+| Main Docs | /swibe/ALL_PHASES_COMPLETE.md |
+| Quick Start | /swibe/DEV_QUICKSTART.md |
+| Language Spec | /swibe/VIBE_SPEC.md |
+| Examples | /swibe/examples/ |
+| Compiler | /swibe/src/compiler.js |
+| VSCode Ext | /swibe/vscode-extension/ |
+| Web IDE | /swibe/web-playground/ |
 
 ---
 
-**🎵 Vibe Language v0.1.0 - Complete and Ready**
+**🎵 Swibe Language v0.1.0 - Complete and Ready**
 
 *Where prompts are code and AI is native.*
 

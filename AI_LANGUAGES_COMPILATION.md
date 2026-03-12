@@ -1,8 +1,8 @@
-# Vibe Language - AI-Focused Language Targets
+# Swibe Language - AI-Focused Language Targets
 
 ## Complete Target List (13 Languages)
 
-Vibe compiles to all major AI and data science languages:
+Swibe compiles to all major AI and data science languages:
 
 ### Data Science & Statistics
 - **R** - Statistical computing, data visualization, ML frameworks
@@ -33,13 +33,13 @@ Vibe compiles to all major AI and data science languages:
 
 ### R: Statistical AI & Data Analysis
 ```bash
-npm run compile myapp.vibe --target r
+npm run compile myapp.swibe --target r
 ```
 **Best for:** Statistical learning, data visualization, research
 
 ```r
 main <- function() {
-  print("Hello, Vibe world!")
+  print("Hello, Swibe world!")
 }
 
 add <- function(a, b) {
@@ -49,13 +49,13 @@ add <- function(a, b) {
 
 ### MATLAB: Numerical Computing
 ```bash
-npm run compile myapp.vibe --target matlab
+npm run compile myapp.swibe --target matlab
 ```
 **Best for:** Signal processing, control systems, rapid prototyping
 
 ```matlab
 function varargout = main()
-    print('Hello, Vibe world!')
+    print('Hello, Swibe world!')
 end
 
 function varargout = add(a, b)
@@ -65,13 +65,13 @@ end
 
 ### Julia: High-Performance ML
 ```bash
-npm run compile myapp.vibe --target julia
+npm run compile myapp.swibe --target julia
 ```
 **Best for:** Scientific computing, matrix operations, ML research
 
 ```julia
 function main()
-  print("Hello, Vibe world!")
+  print("Hello, Swibe world!")
 end
 
 function add(a::Int32, b::Int32)
@@ -81,24 +81,24 @@ end
 
 ### Prolog: Logic & Constraint AI
 ```bash
-npm run compile myapp.vibe --target prolog
+npm run compile myapp.swibe --target prolog
 ```
 **Best for:** Expert systems, constraint satisfaction, rule-based AI
 
 ```prolog
-main() :- print('Hello, Vibe world!').
+main() :- print('Hello, Swibe world!').
 add(A, B) :- (a + b).
 ```
 
 ### Lisp: Symbolic AI & Metaprogramming
 ```bash
-npm run compile myapp.vibe --target lisp
+npm run compile myapp.swibe --target lisp
 ```
 **Best for:** Symbolic reasoning, code generation, classical AI
 
 ```lisp
 (defun main ()
-  (print "Hello, Vibe world!")
+  (print "Hello, Swibe world!")
 )
 
 (defun add (a b)
@@ -108,13 +108,13 @@ npm run compile myapp.vibe --target lisp
 
 ### Haskell: Formal Methods & Type Safety
 ```bash
-npm run compile myapp.vibe --target haskell
+npm run compile myapp.swibe --target haskell
 ```
 **Best for:** Verified code, functional programming, theorem proving
 
 ```haskell
 main
-main = print "Hello, Vibe world!"
+main = print "Hello, Swibe world!"
 
 add :: Int
 add a b = (a + b)
@@ -122,13 +122,13 @@ add a b = (a + b)
 
 ### Lua: Embedded & Game AI
 ```bash
-npm run compile myapp.vibe --target lua
+npm run compile myapp.swibe --target lua
 ```
 **Best for:** Game AI, embedding in applications, neural networks
 
 ```lua
 function main()
-  print("Hello, Vibe world!")
+  print("Hello, Swibe world!")
 end
 
 function add(a, b)
@@ -143,25 +143,25 @@ end
 ### Compile to all AI targets:
 ```bash
 # R
-node src/index.js compile app.vibe --target r
+node src/index.js compile app.swibe --target r
 
 # MATLAB
-node src/index.js compile app.vibe --target matlab
+node src/index.js compile app.swibe --target matlab
 
 # Julia
-node src/index.js compile app.vibe --target julia
+node src/index.js compile app.swibe --target julia
 
 # Prolog
-node src/index.js compile app.vibe --target prolog
+node src/index.js compile app.swibe --target prolog
 
 # Lisp
-node src/index.js compile app.vibe --target lisp
+node src/index.js compile app.swibe --target lisp
 
 # Haskell
-node src/index.js compile app.vibe --target haskell
+node src/index.js compile app.swibe --target haskell
 
 # Lua
-node src/index.js compile app.vibe --target lua
+node src/index.js compile app.swibe --target lua
 ```
 
 ---
@@ -190,7 +190,7 @@ node src/index.js compile app.vibe --target lua
 
 ### Numeric Types
 ```
-Vibe      →  R        MATLAB      Julia          Prolog          Lua
+Swibe      →  R        MATLAB      Julia          Prolog          Lua
 i32       →  integer  int32       Int32          (number)        number
 i64       →  integer  int64       Int64          (number)        number
 f32       →  numeric  single      Float32        (float)         number
@@ -199,7 +199,7 @@ f64       →  numeric  double      Float64        (float)         number
 
 ### Collections
 ```
-Vibe [T]  →  R        MATLAB      Julia          Prolog          Lua
+Swibe [T]  →  R        MATLAB      Julia          Prolog          Lua
            →  c(...)   [...]       Vector{...}    [...]           {...}
 ```
 
@@ -225,7 +225,7 @@ Vibe [T]  →  R        MATLAB      Julia          Prolog          Lua
 - DifferentialEquations.jl
 - Optimization.jl
 
-### Python (via Vibe)
+### Python (via Swibe)
 - TensorFlow/PyTorch
 - Scikit-learn
 - XGBoost
@@ -307,9 +307,9 @@ Vibe [T]  →  R        MATLAB      Julia          Prolog          Lua
 
 ## Example: Multi-Target AI App
 
-Single Vibe source code:
+Single Swibe source code:
 
-```vibe
+```swibe
 fn classify(text: str) -> str {
   %% use sentiment analysis to classify as positive or negative
 }
@@ -327,22 +327,22 @@ Then compile to all targets:
 
 ```bash
 # For R (stats)
-npm run compile app.vibe --target r
+npm run compile app.swibe --target r
 
 # For Julia (ML research)
-npm run compile app.vibe --target julia
+npm run compile app.swibe --target julia
 
 # For Python (general ML)
-npm run compile app.vibe --target python
+npm run compile app.swibe --target python
 
 # For Prolog (symbolic reasoning)
-npm run compile app.vibe --target prolog
+npm run compile app.swibe --target prolog
 
 # For JavaScript (web deployment)
-npm run compile app.vibe --target javascript
+npm run compile app.swibe --target javascript
 
 # For Lua (game integration)
-npm run compile app.vibe --target lua
+npm run compile app.swibe --target lua
 ```
 
 Each generates idiomatic code for that language!
@@ -351,7 +351,7 @@ Each generates idiomatic code for that language!
 
 ## Next Steps
 
-1. **Write Vibe code** with your AI algorithms
+1. **Write Swibe code** with your AI algorithms
 2. **Choose target languages** based on your use case
 3. **Compile to all targets** in one command
 4. **Use AI frameworks** native to each language
@@ -362,4 +362,4 @@ Each generates idiomatic code for that language!
 **Version**: v0.3.0 (AI-Complete)
 **Updated**: December 2025
 
-This update makes Vibe the **most comprehensive AI language compilation system**, supporting all major AI and data science languages in one place.
+This update makes Swibe the **most comprehensive AI language compilation system**, supporting all major AI and data science languages in one place.

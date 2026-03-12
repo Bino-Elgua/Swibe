@@ -1,4 +1,4 @@
-# BrowserOS Integration Guide for Vibe Language
+# BrowserOS Integration Guide for Swibe Language
 
 **Version:** 0.1.0  
 **Status:** Complete  
@@ -11,7 +11,7 @@
 1. [Overview](#overview)
 2. [BrowserOS Capabilities](#browseros-capabilities)
 3. [Getting Started](#getting-started)
-4. [Vibe Macros for BrowserOS](#vibe-macros-for-browseros)
+4. [Swibe Macros for BrowserOS](#swibe-macros-for-browseros)
 5. [Implementation Examples](#implementation-examples)
 6. [Deployment Options](#deployment-options)
 7. [Cross-Device Sync](#cross-device-sync)
@@ -21,7 +21,7 @@
 
 ## Overview
 
-BrowserOS integration brings Vibe apps into the modern web ecosystem with:
+BrowserOS integration brings Swibe apps into the modern web ecosystem with:
 
 - **Progressive Web App (PWA)** support
 - **Web App Manifest** generation
@@ -126,14 +126,14 @@ const headContent = app.generateHTMLHead();
 
 ---
 
-## Vibe Macros for BrowserOS
+## Swibe Macros for BrowserOS
 
 ### #[app] Macro
 
 Declares the application with PWA configuration.
 
 **Syntax:**
-```vibe
+```swibe
 #[app(name: "AppName", version: "1.0.0", description: "...")]
 fn main() { ... }
 ```
@@ -146,7 +146,7 @@ fn main() { ... }
 - `theme_color`: Primary theme color
 
 **Example:**
-```vibe
+```swibe
 #[app(name: "TaskManager", version: "1.0.0", description: "Task management app")]
 fn main() {
   print("TaskManager started")
@@ -160,7 +160,7 @@ fn main() {
 Registers app shortcuts/widgets for the home screen.
 
 **Syntax:**
-```vibe
+```swibe
 #[widget(name: "Widget Name", url: "/path", icon: "icon.png")]
 fn widget_handler() { ... }
 ```
@@ -172,7 +172,7 @@ fn widget_handler() { ... }
 - `description`: Widget description
 
 **Example:**
-```vibe
+```swibe
 #[widget(name: "Dashboard", url: "/dashboard")]
 fn show_dashboard() {
   display_dashboard_content()
@@ -191,7 +191,7 @@ fn show_settings() {
 Configures Progressive Web App settings.
 
 **Syntax:**
-```vibe
+```swibe
 #[pwa(display: "standalone", theme_color: "#2196F3")]
 fn startup() { ... }
 ```
@@ -204,7 +204,7 @@ fn startup() { ... }
 - `scope`: App URL scope
 
 **Example:**
-```vibe
+```swibe
 #[pwa(display: "standalone", theme_color: "#2196F3", background_color: "#fff")]
 fn main() {
   initialize_app()
@@ -218,7 +218,7 @@ fn main() {
 Enables automatic cross-device synchronization.
 
 **Syntax:**
-```vibe
+```swibe
 #[sync(provider: "indexeddb", key: "data_key", ttl: 3600)]
 mut data = {...}
 ```
@@ -231,7 +231,7 @@ mut data = {...}
 - `cloudSync`: Enable cloud synchronization (default: false)
 
 **Example:**
-```vibe
+```swibe
 #[sync(provider: "indexeddb", key: "tasks", autoSync: true)]
 mut tasks: [Task] = []
 
@@ -246,7 +246,7 @@ mut preferences = { theme: "dark" }
 Declares offline support for a function.
 
 **Syntax:**
-```vibe
+```swibe
 #[offline]
 fn fetch_data() -> Result { ... }
 ```
@@ -258,7 +258,7 @@ fn fetch_data() -> Result { ... }
 - Service worker integration
 
 **Example:**
-```vibe
+```swibe
 #[offline]
 fn get_user(id: str) -> User {
   fetch_user_from_api(id)
@@ -277,7 +277,7 @@ fn get_tasks() -> [Task] {
 Generates Electron configuration for desktop deployment.
 
 **Syntax:**
-```vibe
+```swibe
 #[desktop(name: "AppName", version: "1.0.0")]
 fn create_desktop() { ... }
 ```
@@ -294,7 +294,7 @@ fn create_desktop() { ... }
 
 ### Example 1: Basic Task Manager App
 
-```vibe
+```swibe
 #[pwa(display: "standalone", theme_color: "#2196F3")]
 #[app(name: "TaskManager", version: "1.0.0")]
 fn main() {
@@ -331,7 +331,7 @@ fn show_dashboard() {
 
 ### Example 2: App with Multiple Widgets
 
-```vibe
+```swibe
 #[app(name: "ProductivityApp", version: "1.0.0")]
 fn main() {
   initialize_app()
@@ -364,7 +364,7 @@ fn settings_view() {
 
 ### Example 3: Offline-First App
 
-```vibe
+```swibe
 #[offline]
 fn fetch_and_cache(url: str) -> Result {
   -- Automatically cached
@@ -452,7 +452,7 @@ npm run make:electron
 
 ### Implementation
 
-```vibe
+```swibe
 // Define synced data
 #[sync(provider: "indexeddb", cloudSync: true)]
 mut user_data = { ... }
@@ -490,7 +490,7 @@ app.storage.sync.addEventListener('syncerror', (error) => {
 
 Functions marked with `#[offline]` automatically cache results:
 
-```vibe
+```swibe
 #[offline]
 fn get_data(id: str) -> Data {
   -- First call: fetches from server and caches
@@ -576,7 +576,7 @@ exportConfiguration() → Object
 
 ### 1. Always Use #[offline]
 
-```vibe
+```swibe
 ✅ DO:
 #[offline]
 fn fetch_user(id: str) -> User {
@@ -591,7 +591,7 @@ fn fetch_user(id: str) -> User {
 
 ### 2. Sync Critical Data
 
-```vibe
+```swibe
 ✅ DO:
 #[sync(provider: "indexeddb", cloudSync: true)]
 mut user_preferences = {...}
@@ -636,7 +636,7 @@ if (navigator.serviceWorker.controller) {
 ### Issue: Data Not Syncing
 
 **Solution:** Verify sync configuration
-```vibe
+```swibe
 -- Check provider
 #[sync(provider: "indexeddb")]  -- Correct
 #[sync(provider: "storage")]    -- Wrong!
@@ -659,7 +659,7 @@ if (navigator.serviceWorker.controller) {
 
 ## Complete Example: Full App
 
-See `examples/browseros-app.vibe` for a complete Task Manager application with:
+See `examples/browseros-app.swibe` for a complete Task Manager application with:
 - PWA configuration
 - Multiple widgets
 - IndexedDB sync
@@ -679,5 +679,5 @@ See `examples/browseros-app.vibe` for a complete Task Manager application with:
 
 **Status:** BrowserOS integration is complete and production-ready.
 
-All 28 Vibe Language features including #28 BrowserOS Integration are fully implemented.
+All 28 Swibe Language features including #28 BrowserOS Integration are fully implemented.
 

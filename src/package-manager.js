@@ -1,20 +1,20 @@
 /**
  * Package Manager
- * Manages Vibe packages, dependencies, and versioning
+ * Manages Swibe packages, dependencies, and versioning
  */
 
 import fs from "node:fs";
 import path from "node:path";
 
 class PackageManager {
-  constructor(registryUrl = 'https://registry.vibe-lang.dev') {
+  constructor(registryUrl = 'https://registry.swibe.dev') {
     this.registryUrl = registryUrl;
     this.cache = new Map();
     this.packages = new Map();
   }
 
   /**
-   * Load package manifest (vibe.toml)
+   * Load package manifest (swibe.toml)
    */
   loadManifest(manifestPath) {
     const content = fs.readFileSync(manifestPath, 'utf8');
@@ -132,7 +132,7 @@ class PackageManager {
     };
 
     // Write lock file
-    const lockPath = path.join(path.dirname(manifestPath), 'vibe.lock');
+    const lockPath = path.join(path.dirname(manifestPath), 'swibe.lock');
     fs.writeFileSync(lockPath, JSON.stringify(lockfile, null, 2));
 
     return lockfile;
@@ -164,7 +164,7 @@ class PackageManager {
     return `[package]
 name = "${name}"
 version = "${version}"
-description = "Vibe package"
+description = "Swibe package"
 authors = ["Your Name"]
 
 [dependencies]

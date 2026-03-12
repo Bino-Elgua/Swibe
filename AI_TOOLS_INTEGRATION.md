@@ -1,8 +1,8 @@
-# Vibe Language - AI Tools Integration Guide
+# Swibe Language - AI Tools Integration Guide
 
 ## Overview
 
-Vibe Language now includes built-in support for 20+ AI tools and frameworks:
+Swibe Language now includes built-in support for 20+ AI tools and frameworks:
 
 ### Categories
 
@@ -21,7 +21,7 @@ Vibe Language now includes built-in support for 20+ AI tools and frameworks:
 ### TensorFlow
 **Best for:** Neural networks, deep learning, production ML
 
-```vibe
+```swibe
 %% use TensorFlow to build a sequential model with dense layers
 fn build_model() {
   %% import tensorflow as tf
@@ -46,7 +46,7 @@ pip install tensorflow
 ### PyTorch
 **Best for:** Research, custom architectures, dynamic graphs
 
-```vibe
+```swibe
 fn create_neural_net() {
   %% build a PyTorch module with custom layers
   %% use nn.Module pattern
@@ -65,7 +65,7 @@ pip install torch torchvision torchaudio
 ### Scikit-learn
 **Best for:** Classical ML, classification, regression
 
-```vibe
+```swibe
 fn train_classifier(X: [f64], y: [str]) -> Model {
   %% train a RandomForest classifier with scikit-learn
 }
@@ -85,7 +85,7 @@ pip install scikit-learn
 ### XGBoost
 **Best for:** Gradient boosting, competition-winning models
 
-```vibe
+```swibe
 fn train_xgboost(data: [f64]) -> Model {
   %% train XGBoost with early stopping
 }
@@ -105,7 +105,7 @@ pip install xgboost
 ### OpenAI (GPT-4, GPT-3.5)
 **Best for:** General-purpose LLMs, chat, vision
 
-```vibe
+```swibe
 fn chat_with_gpt(message: str) -> str {
   %% call OpenAI API with message
   %% use gpt-4 or gpt-3.5-turbo
@@ -135,7 +135,7 @@ export OPENAI_API_KEY="sk-..."
 ### Anthropic Claude
 **Best for:** Long context, safety, code generation
 
-```vibe
+```swibe
 fn analyze_code(code: str) -> str {
   %% use Claude to review code
 }
@@ -160,7 +160,7 @@ export ANTHROPIC_API_KEY="sk-ant-..."
 ### Groq
 **Best for:** Fast inference, real-time AI
 
-```vibe
+```swibe
 fn quick_inference(prompt: str) -> str {
   %% use Groq for ultra-fast LLM inference
 }
@@ -178,7 +178,7 @@ pip install groq
 ### Grok AI
 **Best for:** Reasoning, multimodal tasks
 
-```vibe
+```swibe
 fn reason_about_problem(problem: str) -> str {
   %% use Grok for complex reasoning
 }
@@ -196,7 +196,7 @@ export XAI_API_KEY="..."
 ### Pinecone
 **Best for:** Managed vector search, serverless
 
-```vibe
+```swibe
 fn semantic_search(query: str) -> [str] {
   %% embed query
   %% search Pinecone index
@@ -225,7 +225,7 @@ export PINECONE_INDEX="my-index"
 ### Weaviate
 **Best for:** Open-source, self-hosted vector search
 
-```vibe
+```swibe
 fn query_weaviate(query: str) -> [Object] {
   %% semantic search in Weaviate
   %% with filtering support
@@ -243,7 +243,7 @@ docker run -p 8080:8080 semitechnologies/weaviate
 ### Qdrant
 **Best for:** Fast, scalable vector similarity
 
-```vibe
+```swibe
 fn similarity_search(query: [f64]) -> [Match] {
   %% search in Qdrant
   %% return similar vectors
@@ -262,7 +262,7 @@ pip install qdrant-client
 ### Pandas
 **Best for:** Data manipulation, cleaning, analysis
 
-```vibe
+```swibe
 fn process_data(file: str) -> DataFrame {
   %% read CSV with pandas
   %% clean and transform data
@@ -285,7 +285,7 @@ pip install pandas
 ### Polars
 **Best for:** Fast parallel processing, large datasets
 
-```vibe
+```swibe
 fn fast_processing(file: str) -> DataFrame {
   %% use Polars for parallel processing
   %% faster than pandas on large data
@@ -304,7 +304,7 @@ pip install polars
 ### NumPy
 **Best for:** Numerical computing, arrays
 
-```vibe
+```swibe
 fn matrix_operations(a: [f64], b: [f64]) -> [f64] {
   %% use NumPy for fast linear algebra
   %% dot products, decompositions
@@ -323,7 +323,7 @@ pip install numpy
 ### OpenCV
 **Best for:** Image processing, object detection
 
-```vibe
+```swibe
 fn detect_faces(image_path: str) -> [Rect] {
   %% load image with OpenCV
   %% detect faces with cascade classifier
@@ -347,7 +347,7 @@ pip install opencv-python
 ### TorchVision
 **Best for:** Vision models, pretrained weights
 
-```vibe
+```swibe
 fn classify_image(image_path: str) -> Classification {
   %% load pretrained ResNet with torchvision
   %% classify image
@@ -366,7 +366,7 @@ pip install torchvision
 ### HuggingFace Transformers
 **Best for:** SOTA NLP models, fine-tuning
 
-```vibe
+```swibe
 fn sentiment_analysis(text: str) -> Sentiment {
   %% use HuggingFace pipeline
   %% classify sentiment
@@ -393,7 +393,7 @@ pip install transformers torch
 ### spaCy
 **Best for:** Production NLP pipelines, efficiency
 
-```vibe
+```swibe
 fn nlp_pipeline(text: str) -> Doc {
   %% tokenization
   %% POS tagging
@@ -417,7 +417,7 @@ python -m spacy download en_core_web_sm
 ### NLTK
 **Best for:** Traditional NLP, linguistic analysis
 
-```vibe
+```swibe
 fn tokenize(text: str) -> [str] {
   %% NLTK tokenization
 }
@@ -439,7 +439,7 @@ pip install nltk
 ### SymPy
 **Best for:** Symbolic mathematics, algebra, calculus
 
-```vibe
+```swibe
 fn solve_equation(eq: str) -> [Solution] {
   %% solve symbolic equations
 }
@@ -463,7 +463,7 @@ pip install sympy
 ### Mathematica/Wolfram Language
 **Best for:** Advanced mathematics, visualization
 
-```vibe
+```swibe
 fn compute_integral(expr: str) -> str {
   %% Wolfram for symbolic integration
 }
@@ -475,10 +475,10 @@ fn solve_ode(ode: str) -> str {
 
 ---
 
-## Usage in Vibe
+## Usage in Swibe
 
 ### Basic Pattern
-```vibe
+```swibe
 -- Compile with tool integration
 fn my_ai_app() {
   %% import tensorflow as tf
@@ -490,13 +490,13 @@ fn my_ai_app() {
 ### Target-Specific Compilation
 ```bash
 # Compile for Python with TensorFlow
-npm run compile app.vibe --target python
+npm run compile app.swibe --target python
 
 # Compile for JavaScript with TensorFlow.js
-npm run compile app.vibe --target javascript
+npm run compile app.swibe --target javascript
 
 # Compile for Go with TensorFlow Go bindings
-npm run compile app.vibe --target go
+npm run compile app.swibe --target go
 ```
 
 ---
@@ -543,7 +543,7 @@ npm run compile app.vibe --target go
 
 ## Example: Complete RAG System
 
-```vibe
+```swibe
 fn build_rag_system(documents: [str]) {
   -- Add documents to vector DB
   %% embed documents with OpenAI embeddings
@@ -565,7 +565,7 @@ fn build_rag_system(documents: [str]) {
 }
 
 -- Compile to python for production
--- npm run compile rag.vibe --target python
+-- npm run compile rag.swibe --target python
 ```
 
 ---
@@ -614,7 +614,7 @@ export HF_TOKEN="hf_..."
 ## Next Steps
 
 1. **Choose your tools** based on your use case
-2. **Write Vibe code** with AI tool integration
+2. **Write Swibe code** with AI tool integration
 3. **Select target language** (Python, JavaScript, Go, etc.)
 4. **Compile and deploy** with full tool support
 
@@ -623,4 +623,4 @@ export HF_TOKEN="hf_..."
 **Version**: v0.4.0 (AI Tools)
 **Updated**: December 2025
 
-Vibe Language is now a **universal AI compiler** supporting every major AI tool and framework!
+Swibe Language is now a **universal AI compiler** supporting every major AI tool and framework!

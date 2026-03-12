@@ -287,6 +287,7 @@ class Lexer {
     until: TokenType.UNTIL,
     goal: TokenType.GOAL,
     call_tool: TokenType.CALL_TOOL,
+    app: TokenType.APP,
   };
 
   addToken(type, value = null) {

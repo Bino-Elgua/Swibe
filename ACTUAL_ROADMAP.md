@@ -1,4 +1,4 @@
-# Vibe Language - ACTUAL Implementation Roadmap
+# Swibe Language - ACTUAL Implementation Roadmap
 
 **Last Updated:** December 5, 2025  
 **Status:** Work in Progress (Real Status)
@@ -11,7 +11,7 @@
 - **Status:** Complete
 - **Files:** `src/lexer.js`, `src/parser.js`, `src/compiler.js`
 - **Implementation:**
-  - ✅ Lexer (442 lines) - tokenizes Vibe syntax
+  - ✅ Lexer (442 lines) - tokenizes Swibe syntax
   - ✅ Parser (584 lines) - builds AST with operator precedence
   - ✅ Compiler (344 lines) - generates target code
 - **Targets Implemented:** JavaScript, Python (basic support)
@@ -57,9 +57,9 @@
 - **Files Created:**
   - `extension.ts` - Main extension logic
   - `language-configuration.json` - Language config
-  - `syntaxes/vibe.tmLanguage.json` - Grammar
-  - `snippets/vibe.json` - Code templates
-  - `themes/vibe-dark.json` & `vibe-light.json`
+  - `syntaxes/swibe.tmLanguage.json` - Grammar
+  - `snippets/swibe.json` - Code templates
+  - `themes/swibe-dark.json` & `swibe-light.json`
 - **Testing:** Manual (ready for marketplace submission)
 - **Dependencies:** Compiler (✅ done)
 
@@ -67,7 +67,7 @@
 - **Status:** Complete
 - **Path:** `web-playground/`
 - **Implemented:**
-  - ✅ Monaco editor integration with Vibe syntax highlighting
+  - ✅ Monaco editor integration with Swibe syntax highlighting
   - ✅ Real-time compilation to JavaScript/Python/Rust/Go/Java
   - ✅ Target selector
   - ✅ Code sharing via URL encoding
@@ -82,7 +82,7 @@
   - `styles.css` - Styling
   - `server.js` - Backend compilation API
 - **API Endpoints:**
-  - `POST /api/compile` - Compile Vibe to target language
+  - `POST /api/compile` - Compile Swibe to target language
   - `POST /api/format` - Format code
   - `POST /api/parse` - Parse to AST
   - `GET /api/targets` - List targets

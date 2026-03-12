@@ -1,8 +1,8 @@
-# Vibe Language - Project Summary
+# Swibe Language - Project Summary
 
 ## Overview
 
-Vibe is a groundbreaking AI-native programming language where:
+Swibe is a groundbreaking AI-native programming language where:
 - **Prompts are first-class syntax** (`%%` for AI code generation)
 - **Voice input** is supported (`[voice: "describe what you want"]`)
 - **Multi-language compilation** (JavaScript, Python, Rust, Go, etc.)
@@ -23,17 +23,17 @@ Vibe is a groundbreaking AI-native programming language where:
 ## Architecture
 
 ```
-vibe-lang/
+swibe/
 ├── src/
-│   ├── lexer.js           # 390 lines - Tokenizes Vibe source
+│   ├── lexer.js           # 390 lines - Tokenizes Swibe source
 │   ├── parser.js          # 450+ lines - Builds AST from tokens
 │   ├── compiler.js        # 350+ lines - Multi-language code generation
 │   ├── llm-integration.js # 180+ lines - AI/LLM/RAG/Agent system
 │   ├── repl.js            # 180+ lines - Interactive shell
 │   └── index.js           # CLI entry point
 ├── examples/
-│   ├── hello.vibe         # Basic syntax examples
-│   └── ai-app.vibe        # AI-powered application examples
+│   ├── hello.swibe         # Basic syntax examples
+│   └── ai-app.swibe        # AI-powered application examples
 ├── VIBE_SPEC.md           # Complete language specification
 ├── README.md              # User guide
 └── package.json           # Dependencies
@@ -54,7 +54,7 @@ vibe-lang/
 - **Prompts**: `%% describe what you want to code`
 - **Voice**: `[voice: "function to validate emails"]`
 - **LLM Calls**: `ai.generate("write a poem")`
-- **RAG Queries**: `rag.search("how to use Vibe", top_k=5)`
+- **RAG Queries**: `rag.search("how to use Swibe", top_k=5)`
 - **Embeddings**: `embed.cosine(text1, text2)`
 - **Agents**: Multi-tool agent orchestration
 
@@ -66,49 +66,49 @@ vibe-lang/
 
 ### 4. Developer Tools
 - **REPL**: Interactive shell with history
-- **CLI**: `vibe compile`, `vibe repl`
+- **CLI**: `swibe compile`, `swibe repl`
 - **Mock LLM**: Works without API keys
 
 ## Code Examples
 
 ### Basic Function
-```vibe
+```swibe
 fn add(a: i32, b: i32) -> i32 {
   a + b
 }
 ```
 
 ### AI Generation (Prompt)
-```vibe
+```swibe
 fn classify(text: str) {
   %% classify this text as positive, negative, or neutral
 }
 ```
 
 ### Multiple Dispatch
-```vibe
+```swibe
 fn process(x: i32) -> str { "number" }
 fn process(x: str) -> str { "string" }
 fn process(x: [f64]) -> str { "array" }
 ```
 
 ### AI Integration
-```vibe
-response = ai.generate("write a poem about Vibe")
-docs = rag.search("how to use Vibe", top_k=5)
+```swibe
+response = ai.generate("write a poem about Swibe")
+docs = rag.search("how to use Swibe", top_k=5)
 similarity = embed.cosine(text1, text2)
 ```
 
 ### Compilation
 ```bash
 # Compile to JavaScript (default)
-vibe compile app.vibe
+swibe compile app.swibe
 
 # Compile to Python
-vibe compile app.vibe --target python
+swibe compile app.swibe --target python
 
 # Compile to Rust
-vibe compile app.vibe --target rust
+swibe compile app.swibe --target rust
 ```
 
 ## Technical Highlights
@@ -160,7 +160,7 @@ vibe compile app.vibe --target rust
 5. WASM backend
 
 ### Phase 5: Ecosystem
-1. Package manager (`vibe install`)
+1. Package manager (`swibe install`)
 2. Module system
 3. Dependency resolution
 4. VSCode extension
@@ -190,7 +190,7 @@ node -e "
 "
 
 # Test compiler
-node src/index.js compile examples/hello.vibe
+node src/index.js compile examples/hello.swibe
 ```
 
 ## Usage
@@ -201,7 +201,7 @@ node src/index.js compile examples/hello.vibe
 npm run repl
 
 # Compile file
-npm run compile examples/hello.vibe
+npm run compile examples/hello.swibe
 
 # Watch mode
 npm run dev
@@ -213,10 +213,10 @@ npm test
 ### Interactive REPL
 ```
 $ npm run repl
-vibe> fn greet(name: str) { print("Hello, " + name) }
-vibe> greet("Vibe")
-Hello, Vibe
-vibe> ai write a fibonacci generator
+swibe> fn greet(name: str) { print("Hello, " + name) }
+swibe> greet("Swibe")
+Hello, Swibe
+swibe> ai write a fibonacci generator
 [generates Fibonacci function from AI]
 ```
 
@@ -264,4 +264,4 @@ MIT
 **Version**: 0.1.0
 **Status**: Pre-alpha, actively developing
 
-The Vibe language brings the future of AI-assisted programming to life.
+The Swibe language brings the future of AI-assisted programming to life.

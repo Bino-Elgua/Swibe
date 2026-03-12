@@ -1,28 +1,28 @@
-# Vibe Language - Multi-Target Update
+# Swibe Language - Multi-Target Update
 
 ## New Compilation Targets Added
 
-Vibe now supports **7 language targets**:
+Swibe now supports **7 language targets**:
 
 ### JavaScript (Original)
 ```bash
-npm run compile examples/hello.vibe
-npm run compile examples/hello.vibe --target javascript
+npm run compile examples/hello.swibe
+npm run compile examples/hello.swibe --target javascript
 ```
 
 ### Python (Original)
 ```bash
-npm run compile examples/hello.vibe --target python
+npm run compile examples/hello.swibe --target python
 ```
 
 ### Rust (Original)
 ```bash
-npm run compile examples/hello.vibe --target rust
+npm run compile examples/hello.swibe --target rust
 ```
 
 ### Go (NEW)
 ```bash
-npm run compile examples/hello.vibe --target go
+npm run compile examples/hello.swibe --target go
 ```
 - Generates package main with fmt imports
 - Goroutine-like concurrency patterns
@@ -30,7 +30,7 @@ npm run compile examples/hello.vibe --target go
 
 ### Julia (NEW)
 ```bash
-npm run compile examples/hello.vibe --target julia
+npm run compile examples/hello.swibe --target julia
 ```
 - Multiple dispatch support native
 - Type annotations: `::`
@@ -39,7 +39,7 @@ npm run compile examples/hello.vibe --target julia
 
 ### Idris (NEW)
 ```bash
-npm run compile examples/hello.vibe --target idris
+npm run compile examples/hello.swibe --target idris
 ```
 - Dependent types support
 - Proof-based programming
@@ -48,7 +48,7 @@ npm run compile examples/hello.vibe --target idris
 
 ### Move (NEW)
 ```bash
-npm run compile examples/hello.vibe --target move
+npm run compile examples/hello.swibe --target move
 ```
 - Linear resource management
 - Module-based organization
@@ -71,7 +71,7 @@ npm run compile examples/hello.vibe --target move
 
 ### Primitive Types
 ```
-Vibe Type → Target Language
+Swibe Type → Target Language
 i32       → JavaScript: number, Python: int, Go: int32, Julia: Int32, Idris: Int, Move: u64
 i64       → int64, int, int64, Int64, Integer, u64
 f32       → float, float, float32, Float32, Double, u64
@@ -82,7 +82,7 @@ bool      → boolean, bool, bool, Bool, Bool, bool
 
 ### Collections
 ```
-Vibe: [T]
+Swibe: [T]
 → JavaScript: Array
 → Python: List
 → Go: []T
@@ -94,8 +94,8 @@ Vibe: [T]
 ## Code Generation Examples
 
 ### Function Definition
-**Vibe:**
-```vibe
+**Swibe:**
+```swibe
 fn add(a: i32, b: i32) -> i32 { a + b }
 ```
 
@@ -131,7 +131,7 @@ fun add(a: u64, b: u64): u64 {
 The compiler uses a **unified AST** that maps to all targets:
 
 ```
-Vibe Source Code
+Swibe Source Code
     ↓
 Lexer (tokenize)
     ↓
@@ -212,13 +212,13 @@ To add a new language target:
 
 ```bash
 # Compile with each target
-npm run compile examples/hello.vibe --target go
-npm run compile examples/hello.vibe --target julia
-npm run compile examples/hello.vibe --target idris
-npm run compile examples/hello.vibe --target move
+npm run compile examples/hello.swibe --target go
+npm run compile examples/hello.swibe --target julia
+npm run compile examples/hello.swibe --target idris
+npm run compile examples/hello.swibe --target move
 
 # View generated code
-npm run compile examples/hello.vibe --target julia | head -20
+npm run compile examples/hello.swibe --target julia | head -20
 ```
 
 ## Future Targets

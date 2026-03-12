@@ -390,6 +390,8 @@ class Parser {
         body.push(this.parseCallToolStatement());
       } else if (this.current().type === TokenType.LOOP) {
         body.push(this.parseLoopUntil());
+      } else if (this.current().type === TokenType.SECURE) {
+        body.push(this.parseSecureBlock());
       } else {
         const field = this.expect(TokenType.IDENTIFIER).value;
         this.expect(TokenType.COLON);

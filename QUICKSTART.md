@@ -1,9 +1,9 @@
-# Vibe Language - Quick Start
+# Swibe Language - Quick Start
 
 ## Installation
 
 ```bash
-cd vibe-lang
+cd swibe
 npm install
 ```
 
@@ -16,29 +16,29 @@ npm run repl
 
 Then type:
 ```
-vibe> fn greet(name: str) { print("Hello " + name) }
-vibe> fn add(a: i32, b: i32) -> i32 { a + b }
-vibe> add(5, 3)
+swibe> fn greet(name: str) { print("Hello " + name) }
+swibe> fn add(a: i32, b: i32) -> i32 { a + b }
+swibe> add(5, 3)
 ```
 
 ### 2. Compile Examples
 ```bash
 # JavaScript (default)
-npm run compile examples/hello.vibe
+npm run compile examples/hello.swibe
 
 # Python
-npm run compile examples/hello.vibe -- --target python
+npm run compile examples/hello.swibe -- --target python
 
 # Rust
-npm run compile examples/hello.vibe -- --target rust
+npm run compile examples/hello.swibe -- --target rust
 ```
 
 ### 3. Write Your Own File
 
-Create `hello.vibe`:
-```vibe
+Create `hello.swibe`:
+```swibe
 fn main() {
-  print("Hello, Vibe!")
+  print("Hello, Swibe!")
 }
 
 fn add(a: i32, b: i32) -> i32 {
@@ -52,13 +52,13 @@ fn greet(name: str) -> str {
 
 Compile:
 ```bash
-node src/index.js compile hello.vibe
+node src/index.js compile hello.swibe
 ```
 
 ## Language Basics
 
 ### Functions
-```vibe
+```swibe
 fn add(x: i32, y: i32) -> i32 {
   x + y
 }
@@ -73,14 +73,14 @@ fn add(x: i32, y: i32) -> i32 {
 - `Option<T>` - nullable type
 
 ### Variables
-```vibe
+```swibe
 x = 10              -- immutable
 mut y = 20          -- mutable
 z: i32 = 30         -- with type annotation
 ```
 
 ### Structs
-```vibe
+```swibe
 struct Point {
   x: i32,
   y: i32
@@ -90,7 +90,7 @@ p = Point { x: 10, y: 20 }
 ```
 
 ### Enums
-```vibe
+```swibe
 enum Color {
   Red,
   Green,
@@ -99,7 +99,7 @@ enum Color {
 ```
 
 ### Match
-```vibe
+```swibe
 match value {
   Some(n) => print(n),
   None => print("empty")
@@ -107,7 +107,7 @@ match value {
 ```
 
 ### Pipelines
-```vibe
+```swibe
 data
   |> filter(x => x > 5)
   |> map(x => x * 2)
@@ -117,47 +117,47 @@ data
 
 ### Prompts
 Use `%%` to ask AI to generate code:
-```vibe
+```swibe
 fn fibonacci(n: i32) {
   %% generate fibonacci sequence up to n
 }
 ```
 
 ### Voice Input
-```vibe
+```swibe
 %% [voice: "create a function that validates email addresses"]
 ```
 
 ### AI Generation
-```vibe
+```swibe
 response = ai.generate("write a poem about programming")
 ```
 
 ### RAG (Search)
-```vibe
-docs = rag.search("how to use vibe language", top_k=5)
+```swibe
+docs = rag.search("how to use swibe language", top_k=5)
 ```
 
 ## Compilation Targets
 
 | Target | Status | Example |
 |--------|--------|---------|
-| JavaScript | ✓ Full | `vibe compile app.vibe` |
-| Python | ✓ Full | `vibe compile app.vibe --target python` |
-| Rust | ✓ Core | `vibe compile app.vibe --target rust` |
+| JavaScript | ✓ Full | `swibe compile app.swibe` |
+| Python | ✓ Full | `swibe compile app.swibe --target python` |
+| Rust | ✓ Core | `swibe compile app.swibe --target rust` |
 | Go | 🚧 WIP | Coming soon |
 
 ## Examples
 
 ### Hello World
-```vibe
+```swibe
 fn main() {
   print("Hello, World!")
 }
 ```
 
 ### Fibonacci
-```vibe
+```swibe
 fn fibonacci(n: i32) -> [i32] {
   if n <= 1 {
     [n]
@@ -169,14 +169,14 @@ fn fibonacci(n: i32) -> [i32] {
 ```
 
 ### Multiple Dispatch
-```vibe
+```swibe
 fn type_name(x: i32) -> str { "integer" }
 fn type_name(x: str) -> str { "string" }
 fn type_name(x: [i32]) -> str { "array" }
 ```
 
 ### Safe Division
-```vibe
+```swibe
 fn safe_divide(a: i32, b: i32) -> Option<i32> {
   if b == 0 { None } else { Some(a / b) }
 }
@@ -188,7 +188,7 @@ match safe_divide(10, 2) {
 ```
 
 ### AI-Powered Function
-```vibe
+```swibe
 fn analyze_text(text: str) {
   %% Analyze this text for sentiment, extracting keywords: {text}
 }
@@ -215,7 +215,7 @@ fn analyze_text(text: str) {
 
 1. **Read** [VIBE_SPEC.md](VIBE_SPEC.md) for complete language spec
 2. **Explore** `examples/` folder for more patterns
-3. **Build** your own `.vibe` files
+3. **Build** your own `.swibe` files
 4. **Share** your creations
 
 ## Resources
@@ -223,16 +223,16 @@ fn analyze_text(text: str) {
 - **Language Spec**: [VIBE_SPEC.md](VIBE_SPEC.md)
 - **Full Guide**: [README.md](README.md)
 - **Project Summary**: [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md)
-- **Examples**: `examples/hello.vibe`, `examples/ai-app.vibe`
+- **Examples**: `examples/hello.swibe`, `examples/ai-app.swibe`
 
 ## Questions?
 
 Check the spec or try the REPL:
 ```bash
 npm run repl
-vibe> help
+swibe> help
 ```
 
 ---
 
-**Have fun coding in Vibe!** 🎵
+**Have fun coding in Swibe!** 🎵

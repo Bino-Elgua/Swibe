@@ -1,10 +1,10 @@
-# Vibe Language Specification
+# Swibe Language Specification
 
 ## Overview
-Vibe is an AI-native, prompt-first programming language where AI constructs are first-class citizens. Code can be written via voice, prompts, or traditional syntax. Compiles to JavaScript, Python, Go, Rust, etc.
+Swibe is an AI-native, prompt-first programming language where AI constructs are first-class citizens. Code can be written via voice, prompts, or traditional syntax. Compiles to JavaScript, Python, Go, Rust, etc.
 
 ## Core Philosophy
-- **Vibe First**: Natural language prompts are valid syntax
+- **Swibe First**: Natural language prompts are valid syntax
 - **AI Native**: LLM calls, RAG queries, embeddings built-in
 - **Multi-Target**: Compile to any language
 - **Type Smart**: Inferred types with Julia-like multiple dispatch
@@ -14,7 +14,7 @@ Vibe is an AI-native, prompt-first programming language where AI constructs are 
 
 ### 1. Basic Functions
 
-```vibe
+```swibe
 -- Traditional function syntax
 fn add(a: i32, b: i32) -> i32 {
   a + b
@@ -33,12 +33,12 @@ fn process_audio() {
 
 ### 2. AI as First-Class
 
-```vibe
+```swibe
 -- Direct LLM call
 response = ai.generate("write a poem about coding")
 
 -- RAG query
-docs = rag.search("how to use vibe language", top_k=5)
+docs = rag.search("how to use swibe language", top_k=5)
 
 -- Embedding similarity
 similarity = embed.cosine(text1, text2)
@@ -55,7 +55,7 @@ result = agent.run("build a todo app")
 
 ### 3. Type System (Julia-like)
 
-```vibe
+```swibe
 -- Multiple dispatch
 fn process(x: i32) -> str { "int" }
 fn process(x: str) -> str { "string" }
@@ -74,7 +74,7 @@ trait Serializable {
 
 ### 4. Memory Safety (Rust-inspired)
 
-```vibe
+```swibe
 -- Ownership
 value = Data { x: 42 }  -- value owns Data
 ref = &value            -- borrow
@@ -93,7 +93,7 @@ match option_val {
 
 ### 5. Async/Concurrent (Go-inspired)
 
-```vibe
+```swibe
 -- Goroutine-like spawning
 spawn {
   result = fetch("https://api.example.com")
@@ -114,7 +114,7 @@ async fn fetch_data(url: str) -> str {
 
 ### 6. Move Semantics (Move language inspired)
 
-```vibe
+```swibe
 -- Linear types (resource management)
 resource File = { handle: i64, path: str }
 
@@ -127,7 +127,7 @@ fn read_file(f: File) -> str {
 
 ### 7. Data Structures
 
-```vibe
+```swibe
 -- Struct
 struct User {
   id: u64,
@@ -151,7 +151,7 @@ protocol Drawable {
 
 ## Compilation Targets
 
-Vibe compiles to:
+Swibe compiles to:
 - JavaScript/TypeScript
 - Python
 - Go
@@ -174,9 +174,9 @@ Vibe compiles to:
 
 ## REPL
 
-Interactive vibe shell:
+Interactive swibe shell:
 ```
-$ vibe repl
+$ swibe repl
 > fn hello() { print("world") }
 > hello()
 world
@@ -189,7 +189,7 @@ world
 ## Example Programs
 
 ### Todo App Generator
-```vibe
+```swibe
 app = generate_app {
   %% create a todo app with add, delete, mark complete features
   database: "sqlite",
@@ -201,7 +201,7 @@ app.deploy("localhost:3000")
 ```
 
 ### Data Pipeline
-```vibe
+```swibe
 data = rag.search("climate data", top_k=100)
 processed = data
   |> filter(x => x.year > 2020)
@@ -212,7 +212,7 @@ save(processed, "climate_2020.json")
 ```
 
 ### Voice Coding
-```vibe
+```swibe
 %% [voice: "write a function that takes a list of numbers and returns the ones that are prime"]
 ```
 

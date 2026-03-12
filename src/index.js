@@ -7,14 +7,14 @@ import { Lexer } from './lexer.js';
 import { Parser } from './parser.js';
 import { Compiler } from './compiler.js';
 import { LLMIntegration, RAGIntegration, Agent } from './llm-integration.js';
-import { VibeREPL } from './repl.js';
+import { SwibeREPL } from './repl.js';
 
 async function main() {
   const args = process.argv.slice(2);
 
   // No arguments - start REPL
   if (args.length === 0) {
-    const repl = new VibeREPL();
+    const repl = new SwibeREPL();
     repl.start();
     return;
   }
@@ -24,7 +24,7 @@ async function main() {
   switch (command) {
     case 'compile': {
       if (args.length < 2) {
-        console.error('Usage: vibe compile <file> [--target language]');
+        console.error('Usage: swibe compile <file> [--target language]');
         process.exit(1);
       }
 
@@ -46,7 +46,7 @@ async function main() {
 
     case 'run': {
       if (args.length < 2) {
-        console.error('Usage: vibe run <file>');
+        console.error('Usage: swibe run <file>');
         process.exit(1);
       }
 
@@ -69,6 +69,7 @@ async function main() {
         Agent,
         RAGIntegration,
         sandbox,
+        sandbox_run: std.sandbox_run.bind(std),
         mcp,
         rag,
         checkGoal: std.checkGoal.bind(std),
@@ -92,34 +93,34 @@ async function main() {
     }
 
     case 'repl': {
-      const repl = new VibeREPL();
+      const repl = new SwibeREPL();
       repl.start();
       break;
     }
 
     case 'version': {
-      console.log('Vibe v0.1.0');
+      console.log('Swibe v0.1.0');
       break;
     }
 
     case 'help':
     default: {
       console.log(`
-Vibe Language CLI v0.1.0
+Swibe Language CLI v0.1.0
 
 Usage:
-  vibe                              Start interactive REPL
-  vibe compile <file> [--target]   Compile Vibe to target language
-  vibe repl                        Interactive shell
-  vibe version                     Show version
-  vibe help                        Show this help
+  swibe                              Start interactive REPL
+  swibe compile <file> [--target]   Compile Swibe to target language
+  swibe repl                        Interactive shell
+  swibe version                     Show version
+  swibe help                        Show this help
 
 Target languages: javascript, python, rust, go (default: javascript)
 
 Examples:
-  vibe compile hello.vibe
-  vibe compile app.vibe --target python
-  vibe compile ai-app.vibe --target rust
+  swibe compile hello.swibe
+  swibe compile app.swibe --target python
+  swibe compile ai-app.swibe --target rust
       `);
       break;
     }

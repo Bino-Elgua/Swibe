@@ -1,5 +1,5 @@
 {
-  "project": "Vibe Language",
+  "project": "Swibe Language",
   "version": "0.5.0",
   "lastUpdated": "2025-12-05",
   "phases": {
@@ -347,7 +347,7 @@
             1
           ],
           "tasks": [
-            ".vibe.yml support",
+            ".swibe.yml support",
             "GitHub Actions",
             "GitLab CI",
             "Jenkins",
@@ -379,9 +379,9 @@
             1
           ],
           "tasks": [
-            "Python → Vibe",
-            "TypeScript → Vibe",
-            "Go → Vibe",
+            "Python → Swibe",
+            "TypeScript → Swibe",
+            "Go → Swibe",
             "AST mapping",
             "Partial conversion"
           ],

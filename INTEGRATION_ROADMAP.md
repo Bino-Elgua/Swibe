@@ -1,4 +1,4 @@
-# Vibe Language - Integration Roadmap (28 Features)
+# Swibe Language - Integration Roadmap (28 Features)
 
 **Last Updated**: December 2025
 **Current Phase**: Phase 1 - Foundation
@@ -63,11 +63,11 @@ Core features that enable everything else. Focus on developer experience.
   - [ ] Collection types (List, Set, Map)
 - **Target Completion Date**: End of Week 2
 - **Files to Create**:
-  - `stdlib/core.vibe` - Core functions
-  - `stdlib/arrays.vibe` - Array utilities
-  - `stdlib/strings.vibe` - String utilities
-  - `stdlib/math.vibe` - Math functions
-  - `stdlib/io.vibe` - Input/output
+  - `stdlib/core.swibe` - Core functions
+  - `stdlib/arrays.swibe` - Array utilities
+  - `stdlib/strings.swibe` - String utilities
+  - `stdlib/math.swibe` - Math functions
+  - `stdlib/io.swibe` - Input/output
 
 ### ⏳ 4. VSCode Extension
 - **Status**: NOT STARTED
@@ -86,7 +86,7 @@ Core features that enable everything else. Focus on developer experience.
 - **Target Completion Date**: End of Week 3
 - **Files to Create**:
   - `extensions/vscode/package.json`
-  - `extensions/vscode/syntaxes/vibe.tmLanguage.json`
+  - `extensions/vscode/syntaxes/swibe.tmLanguage.json`
   - `extensions/vscode/src/extension.ts`
   - `extensions/vscode/src/server.ts`
 
@@ -126,7 +126,7 @@ Core features that enable everything else. Focus on developer experience.
 - **Target Completion Date**: End of Week 3
 - **Files to Create**:
   - `src/test-runner.js`
-  - `stdlib/testing.vibe`
+  - `stdlib/testing.swibe`
 
 ### ⏳ 7. Documentation Generator
 - **Status**: NOT STARTED
@@ -160,7 +160,7 @@ Core features that enable everything else. Focus on developer experience.
 - **Files to Create**:
   - `src/formatter.js`
   - `src/linter.js`
-  - `.vibefmt.json` template
+  - `.swibefmt.json` template
 
 ### ⏳ 9. Type Inference Engine
 - **Status**: NOT STARTED
@@ -184,14 +184,14 @@ Core features that enable everything else. Focus on developer experience.
 
 Developer ecosystem and code generation tools.
 
-### ⏳ 10. Package Manager (Vibe Registry)
+### ⏳ 10. Package Manager (Swibe Registry)
 - **Status**: NOT STARTED
 - **Completion**: 0%
 - **Priority**: HIGH
 - **Estimated**: Week 5-6
 - **Requirements**:
-  - [ ] Package.vibe manifest format
-  - [ ] Central registry (registry.vibe-lang.dev)
+  - [ ] Package.swibe manifest format
+  - [ ] Central registry (registry.swibe.dev)
   - [ ] Install/publish commands
   - [ ] Dependency resolution
   - [ ] Version management
@@ -201,7 +201,7 @@ Developer ecosystem and code generation tools.
 - **Files to Create**:
   - `src/package-manager.js`
   - `src/registry-client.js`
-  - `.vibepkg` template
+  - `.swibepkg` template
 
 ### ⏳ 11. REST/GraphQL API Generator
 - **Status**: NOT STARTED
@@ -286,7 +286,7 @@ Developer ecosystem and code generation tools.
 - **Target Completion Date**: End of Week 8
 - **Files to Create**:
   - `src/agent-generator.js`
-  - `templates/agent-scaffold.vibe`
+  - `templates/agent-scaffold.swibe`
 
 ### ⏳ 16. Multi-Model Fallback
 - **Status**: NOT STARTED
@@ -309,7 +309,7 @@ Developer ecosystem and code generation tools.
 - **Priority**: MEDIUM
 - **Estimated**: Week 8
 - **Requirements**:
-  - [ ] `.vibe.yml` config support
+  - [ ] `.swibe.yml` config support
   - [ ] GitHub Actions integration
   - [ ] GitLab CI integration
   - [ ] Jenkins integration
@@ -318,8 +318,8 @@ Developer ecosystem and code generation tools.
 - **Target Completion Date**: End of Week 8
 - **Files to Create**:
   - `src/ci-config.js`
-  - `templates/.vibe.yml`
-  - `.github/workflows/vibe.yml`
+  - `templates/.swibe.yml`
+  - `.github/workflows/swibe.yml`
 
 ### ⏳ 18. Jupyter Notebook Support
 - **Status**: NOT STARTED
@@ -333,7 +333,7 @@ Developer ecosystem and code generation tools.
   - [ ] Integration with Python
 - **Target Completion Date**: End of Week 8
 - **Files to Create**:
-  - `kernel/vibe_kernel.py`
+  - `kernel/swibe_kernel.py`
 
 ### ⏳ 19. Code Transpiler (Bidirectional)
 - **Status**: NOT STARTED
@@ -341,9 +341,9 @@ Developer ecosystem and code generation tools.
 - **Priority**: LOW
 - **Estimated**: Week 8
 - **Requirements**:
-  - [ ] Python → Vibe transpiler
-  - [ ] TypeScript → Vibe transpiler
-  - [ ] Go → Vibe transpiler
+  - [ ] Python → Swibe transpiler
+  - [ ] TypeScript → Swibe transpiler
+  - [ ] Go → Swibe transpiler
   - [ ] AST mapping
   - [ ] Partial conversion support
 - **Target Completion Date**: End of Week 8
@@ -498,9 +498,9 @@ Community, learning, and advanced features.
   - [ ] Regression detection
 - **Target Completion Date**: End of Week 13
 - **Files to Create**:
-  - `benchmarks/sorting.vibe`
-  - `benchmarks/matrix.vibe`
-  - `benchmarks/string.vibe`
+  - `benchmarks/sorting.swibe`
+  - `benchmarks/matrix.swibe`
+  - `benchmarks/string.swibe`
   - `src/benchmark-runner.js`
 
 ### ⏳ 28. BrowserOS Integration
@@ -519,12 +519,12 @@ Community, learning, and advanced features.
   - [ ] PWA support
   - [ ] Cross-device sync
 - **Target Completion Date**: End of Week 13
-- **Notes**: Make Vibe apps deployable to BrowserOS platform
+- **Notes**: Make Swibe apps deployable to BrowserOS platform
 - **Files to Create**:
   - `src/browseros-generator.js`
-  - `templates/browseros-app.vibe`
+  - `templates/browseros-app.swibe`
   - `templates/browseros-manifest.json`
-  - `templates/browseros-widget.vibe`
+  - `templates/browseros-widget.swibe`
 
 ---
 
@@ -620,25 +620,25 @@ Phase 4 depends on:
 
 ```bash
 # Show current phase progress
-vibe roadmap --phase 1
+swibe roadmap --phase 1
 
 # Show all incomplete tasks
-vibe roadmap --status todo
+swibe roadmap --status todo
 
 # Show high priority items
-vibe roadmap --priority high
+swibe roadmap --priority high
 
 # Update feature status
-vibe roadmap update --feature "Standard Library" --status "in-progress" --completion 25
+swibe roadmap update --feature "Standard Library" --status "in-progress" --completion 25
 
 # Show blocking dependencies
-vibe roadmap --blocked
+swibe roadmap --blocked
 ```
 
 ---
 
 **Version**: 1.0.0
 **Last Updated**: December 2025
-**Maintained By**: Vibe Dev Team
+**Maintained By**: Swibe Dev Team
 
 🎵 **Tracking the future of AI programming!**

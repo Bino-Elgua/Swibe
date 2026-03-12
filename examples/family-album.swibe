@@ -1,0 +1,61 @@
+-- Swibe World Birth: Private Family Photo Album
+-- Goal: Secure, local-first album with AI auto-tagging.
+
+skill VisionTagger {
+  prompt: "Analyze image and generate tags: people (names if known), place, date/time, mood/emotion"
+  tools: ["image_reader", "vision_model"]
+}
+
+skill PrivacyGuard {
+  secure {
+    encrypt_storage()
+    no_external_upload()
+  }
+}
+
+skill AlbumKeeper {
+  prompt: "Save the current album state to persistent RAG storage"
+}
+
+app {
+  type: "photo-album",
+  need: "private family photo album with auto-tagging of people, places, dates, and moods. No cloud upload — local-first, encrypted storage, searchable by tag",
+  platform: "web"
+}
+
+swarm {
+  architect: "Design UI + backend for private album (upload, view, search by tag)" =>
+  builder: "Generate full Swibe code + local storage encryption" =>
+  tagger: VisionTagger =>
+  guard: PrivacyGuard =>
+  keeper: AlbumKeeper =>
+  healer: "Monitor crashes, memory leaks, tag accuracy; auto-patch" =>
+  runner: "Deploy to Vercel or local server and return live URL"
+}
+
+fn main() {
+  println("🌑 Family Album Genesis ritual starting...")
+  
+  -- The app primitive above has already birthed the config and deployment.
+  
+  -- For the demo, we show the skills in action within a self-healing loop
+  loop until goal: "App is live, private, tags correctly, and heals itself" {
+    println("🔄 Swarm cycle in progress...")
+    
+    -- Simulate the privacy guard first
+    PrivacyGuard.actions()
+    
+    -- In a real run, the swarm above would handle the full pipeline.
+    -- Here we simulate the trace of its success.
+    trace("Architect: UI/UX layout finalized.")
+    trace("Builder: Local-first database schema implemented.")
+    
+    -- Verify search logic
+    let results = search_tags("Disney 2025")
+    println("📸 Search results found: " + len(results))
+    
+    rag.save("album_genesis_v1")
+  }
+  
+  trace("Family album born. Private. Self-healing. Àṣẹ.")
+}

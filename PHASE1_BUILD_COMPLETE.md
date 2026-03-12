@@ -1,4 +1,4 @@
-# Vibe Language - Phase 1 Build Status
+# Swibe Language - Phase 1 Build Status
 
 **Date:** December 5, 2025  
 **Time:** Single Session Build  
@@ -26,10 +26,10 @@
 vscode-extension/
 ├── extension.ts
 ├── language-configuration.json
-├── syntaxes/vibe.tmLanguage.json
-├── snippets/vibe.json
-├── themes/vibe-dark.json
-└── themes/vibe-light.json
+├── syntaxes/swibe.tmLanguage.json
+├── snippets/swibe.json
+├── themes/swibe-dark.json
+└── themes/swibe-light.json
 ```
 
 ---
@@ -38,7 +38,7 @@ vscode-extension/
 - **Status:** Production ready
 - **Size:** 800+ lines across 4 files
 - **Features:**
-  - Monaco editor with Vibe syntax highlighting
+  - Monaco editor with Swibe syntax highlighting
   - Real-time compilation to 7 target languages
   - 5 example programs
   - Code sharing via URL
@@ -59,7 +59,7 @@ web-playground/
 
 **How to Run:**
 ```bash
-cd vibe-lang/web-playground
+cd swibe/web-playground
 npm install
 node server.js
 # Open http://localhost:3000
@@ -205,10 +205,10 @@ Once Phase 1 is 100% complete, Phase 2 can begin (10 features):
 **VSCode Extension (6 files):**
 - `extension.ts` - Main extension logic with providers
 - `language-configuration.json` - Language rules
-- `syntaxes/vibe.tmLanguage.json` - Syntax grammar
-- `snippets/vibe.json` - Code templates
-- `themes/vibe-dark.json` - Dark color theme
-- `themes/vibe-light.json` - Light color theme
+- `syntaxes/swibe.tmLanguage.json` - Syntax grammar
+- `snippets/swibe.json` - Code templates
+- `themes/swibe-dark.json` - Dark color theme
+- `themes/swibe-light.json` - Light color theme
 
 **Web Playground (4 files):**
 - `index.html` - UI structure with Monaco editor
@@ -273,7 +273,7 @@ All features verified:
 
 ## 🎵 Summary
 
-**Vibe Language is now 67% complete for Phase 1.**
+**Swibe Language is now 67% complete for Phase 1.**
 
 The foundation is solid with a working compiler, AI integration, and development tools. The next 3 features will complete Phase 1, allowing Phase 2 to begin.
 

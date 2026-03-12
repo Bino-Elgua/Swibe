@@ -96,9 +96,9 @@ services:
   postgres:
     image: postgres:15
     environment:
-      POSTGRES_DB: vibe_db
-      POSTGRES_USER: vibe
-      POSTGRES_PASSWORD: vibe
+      POSTGRES_DB: swibe_db
+      POSTGRES_USER: swibe
+      POSTGRES_PASSWORD: swibe
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
@@ -160,9 +160,9 @@ LOG_LEVEL=info
 # Database
 DB_HOST=postgres
 DB_PORT=5432
-DB_NAME=vibe_db
-DB_USER=vibe
-DB_PASSWORD=vibe
+DB_NAME=swibe_db
+DB_USER=swibe
+DB_PASSWORD=swibe
 
 # Cache
 REDIS_HOST=redis
