@@ -58,7 +58,7 @@ async function main() {
       const compiler = new Compiler(source, 'javascript');
       const code = await compiler.compile();
 
-      const { StandardLibrary, SwarmPipeline, sandbox, mcp } = await import('./stdlib.js');
+      const { StandardLibrary, SwarmPipeline, sandbox, mcp, MetaDigital } = await import('./stdlib.js');
       const { RAGIntegration, Agent } = await import('./llm-integration.js');
       const std = new StandardLibrary();
       const rag = new RAGIntegration();
@@ -73,6 +73,7 @@ async function main() {
         sandbox_run: std.sandbox_run.bind(std),
         mcp,
         rag,
+        MetaDigital,
         checkGoal: std.checkGoal.bind(std),
         console,
         crypto,

@@ -104,6 +104,11 @@ class Parser {
       return this.parseAppDecl();
     }
 
+    // Meta-digital declaration
+    if (token.type === TokenType.META_DIGITAL) {
+      return this.parseMetaDigital();
+    }
+
     // Skill declaration
     if (token.type === TokenType.SKILL) {
       return this.parseSkillDecl();
@@ -377,6 +382,43 @@ class Parser {
 
     this.expect(TokenType.RBRACE);
     return new ASTNode('AppDecl', { config });
+  }
+
+  parseMetaDigital() {
+    this.expect(TokenType.META_DIGITAL);
+    const name = this.expect(TokenType.STRING).value;
+    this.expect(TokenType.LBRACE);
+
+    const config = {};
+    while (this.current().type !== TokenType.RBRACE) {
+      const fieldName = this.expect(TokenType.IDENTIFIER).value;
+      this.expect(TokenType.COLON);
+      
+      let value;
+      if (fieldName === 'chain') {
+        value = [];
+        while (true) {
+          value.push(this.expect(TokenType.IDENTIFIER).value);
+          if (this.current().type === TokenType.COMMA) {
+            this.advance();
+          } else {
+            break;
+          }
+        }
+      } else {
+        value = this.parseExpression();
+      }
+
+      config[fieldName] = value;
+      if (this.current().type === TokenType.SEMICOLON) {
+        this.advance();
+      } else if (this.current().type === TokenType.COMMA) {
+        this.advance();
+      }
+    }
+
+    this.expect(TokenType.RBRACE);
+    return new ASTNode('MetaDigital', { name, config });
   }
 
   parseSkillDecl() {

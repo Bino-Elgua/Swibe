@@ -64,6 +64,8 @@ class StandardLibrary {
       'bipon39_mnemonicToSeed': this.bipon39_mnemonicToSeed.bind(this),
       'lookup_meta': this.lookup_meta.bind(this),
       'elemental_signature': this.elemental_signature.bind(this),
+      'refuse_if': (cond) => cond,
+      'ase': (msg) => `${msg} Àṣẹ.`,
     };
   }
 
@@ -334,4 +336,52 @@ class SwarmPipeline {
   }
 }
 
-export { StandardLibrary, SwarmPipeline, Agent, sandbox, mcp };
+class MetaDigital {
+  constructor(config) {
+    this.name = config.name;
+    this.need = config.need;
+    this.ethics = config.ethics;
+    this.chain = config.chain || [];
+    this.output = config.output;
+  }
+
+  async run(input = '', context = {}) {
+    console.log(`[META-DIGITAL] Running: ${this.name}`);
+    let currentInput = input;
+
+    // 1. Resolve and run chain sequentially
+    for (const skill of this.chain) {
+      console.log(`[META-DIGITAL] Executing skill in chain`);
+      if (typeof skill.actions === 'function') {
+        const skillContext = { ...context };
+        await skill.actions.call(skillContext);
+        const agent = new Agent({
+          name: this.name + '_chain_step',
+          system_prompt: skillContext.prompt,
+          tools: skillContext.tools
+        });
+        currentInput = await agent.run(currentInput);
+      } else if (skill instanceof Agent) {
+        currentInput = await skill.run(currentInput);
+      }
+    }
+
+    // 2. Apply ethics check (Mock)
+    if (this.ethics && typeof this.ethics === 'string' && this.ethics.includes('harm')) {
+      console.error(`[META-DIGITAL] Refused: ${this.ethics}`);
+      throw new Error(`refused: ${this.ethics}`);
+    }
+
+    // 3. Seal receipt (blake3 hash of inputs+output - using SHA256 as fallback)
+    const receiptContent = JSON.stringify({ input, output: this.output, chain: this.chain.length });
+    const receipt = crypto.createHash('sha256').update(receiptContent).digest('hex');
+    console.log(`[META-DIGITAL] Receipt Sealed: ${receipt}`);
+
+    // 4. Log to vault (Simulated)
+    console.log(`[META-DIGITAL] Logged to vault: ${this.name} (${receipt})`);
+
+    return this.output;
+  }
+}
+
+export { StandardLibrary, SwarmPipeline, Agent, sandbox, mcp, MetaDigital };

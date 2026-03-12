@@ -50,6 +50,7 @@ const TokenType = {
   SKILL: 'SKILL',
   APP: 'APP',
   SECURE: 'SECURE',
+  META_DIGITAL: 'META_DIGITAL',
   UNTIL: 'UNTIL',
   GOAL: 'GOAL',
   CALL_TOOL: 'CALL_TOOL',
@@ -284,6 +285,7 @@ class Lexer {
     skill: TokenType.SKILL,
     app: TokenType.APP,
     secure: TokenType.SECURE,
+    'meta-digital': TokenType.META_DIGITAL,
     until: TokenType.UNTIL,
     goal: TokenType.GOAL,
     call_tool: TokenType.CALL_TOOL,
@@ -304,6 +306,16 @@ class Lexer {
       this.tokenLine = this.line;
       this.tokenColumn = this.column;
       const char = this.current();
+
+      // Special case for meta-digital (keyword with hyphen)
+      if (this.source.substring(this.pos, this.pos + 12) === 'meta-digital') {
+        const nextChar = this.source[this.pos + 12];
+        if (!nextChar || /\s/.test(nextChar) || nextChar === '{') {
+          this.addToken(TokenType.META_DIGITAL, 'meta-digital');
+          for (let i = 0; i < 12; i++) this.advance();
+          continue;
+        }
+      }
 
       // Comments
       if (char === '-' && this.peek() === '-') {

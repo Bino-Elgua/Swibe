@@ -1,0 +1,27 @@
+-- Swibe Meta-Digital Demo
+-- Demonstrates the new meta-digital primitive.
+
+skill GuardianPatrol {
+  prompt: "Patrol the digital perimeter for anomalies."
+}
+
+skill IfaOracle {
+  prompt: "Consult the oracle for wisdom on digital paths."
+}
+
+meta-digital "patrol" { 
+  chain: GuardianPatrol, IfaOracle; 
+  ethics: refuse_if("spam"); 
+  output: ase("Sealed.") 
+}
+
+fn main() {
+  println("--- Meta-Digital Demo ---")
+  
+  -- The meta-digital declaration creates a 'patrol' object
+  -- We call its run method
+  let result = patrol.run("Start security sweep")
+  println("Result: " + result)
+  
+  println("--- Demo Complete ---")
+}

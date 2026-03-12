@@ -200,6 +200,9 @@ class Compiler {
       case 'AppDecl':
         return this.genJSApp(node);
 
+      case 'MetaDigital':
+        return this.genJSMetaDigital(node);
+
       case 'SkillDecl':
         return this.genJSSkill(node);
 
@@ -313,6 +316,20 @@ class Compiler {
     }
     code += `};\n`;
     code += `(await deploy_app(__APP_CONFIG));\n`;
+    return code;
+  }
+
+  genJSMetaDigital(node) {
+    let code = `const ${node.name.replace(/[^a-zA-Z0-9_]/g, '_')} = new MetaDigital({\n`;
+    code += `  name: "${node.name}",\n`;
+    for (const key in node.config) {
+      if (key === 'chain') {
+        code += `  ${key}: [${node.config[key].join(', ')}],\n`;
+      } else {
+        code += `  ${key}: ${this.genJavaScript(node.config[key])},\n`;
+      }
+    }
+    code += `});\n`;
     return code;
   }
 
