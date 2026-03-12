@@ -1,5 +1,5 @@
 -- Bitcoin Oracle: Swibe Agent on Sui
--- Goal: Fetch BTC price via MCP and log it on-chain via Sui RPC.
+-- Goal: Fetch BTC price and log it on-chain every 5 minutes.
 
 skill Hunter {
   prompt: "Fetch the Bitcoin spot price in USD from coinbase_api",
@@ -7,11 +7,11 @@ skill Hunter {
 }
 
 skill Scribe {
-  prompt: "Format the BTC price as a string: 'Bitcoin: X USD' where X is the amount."
+  prompt: "Format the BTC price as a string: 'BTC: $X USD – Àṣẹ' where X is the amount."
 }
 
 skill Oracle {
-  prompt: "Send the price to Sui using update_oracle function on module soul",
+  prompt: "Log the price to Sui via update_oracle function on module soul",
   tools: ["sui_rpc"]
 }
 
@@ -22,45 +22,42 @@ swarm {
 }
 
 fn main() {
-  println("🚀 Launching Bitcoin Oracle mission...")
+  println("🚀 Launching real-time Bitcoin Oracle...")
   
   -- Define agents for the mission
   let hunter = create_agent({
     name: "Hunter",
-    system_prompt: "You are an expert at fetching financial data via coinbase_api.",
+    system_prompt: "Expert at fetching financial data.",
     tools: ["coinbase_api"]
   });
   
   let scribe = create_agent({
     name: "Scribe",
-    system_prompt: "You are a master of formatting data for blockchain events."
+    system_prompt: "Master of formatting for blockchain events."
   });
   
   let oracle = create_agent({
     name: "Oracle",
-    system_prompt: "You are an on-chain deployment specialist. You use sui_rpc to log data.",
+    system_prompt: "Deployment specialist. Logs data to Sui.",
     tools: ["sui_rpc"]
   });
 
-  loop until goal: "Price logged on-chain" {
-    println("🔄 Fetching BTC price and logging to Sui...")
+  loop until goal: "Oracle mission complete" {
+    println("🔄 Updating Bitcoin price on-chain...")
     
-    -- Execute the swarm flow
     let price_raw = hunter.run("Get BTC price")
     println("🔍 Hunter fetched: " + price_raw)
     
-    let price_str = scribe.run("Format this: " + price_raw)
+    let price_str = scribe.run("Format BTC: " + price_raw)
     println("✍️ Scribe formatted: " + price_str)
     
     let tx_digest = oracle.run("Log to Sui: " + price_str)
-    println("⛓️ Oracle transaction digest: " + tx_digest)
+    println("⛓️ Transaction digest: " + tx_digest)
     
-    -- Persist progress
-    rag.save("btc_breath")
+    rag.save("btc_oracle_breath")
     
-    -- One iteration for the demo
-    break
+    -- Wait 5 minutes before the next breath
+    println("💤 Resting for 5 minutes...")
+    sleep(300000)
   }
-  
-  trace("Oracle breath complete")
 }

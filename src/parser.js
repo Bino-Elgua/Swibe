@@ -99,6 +99,11 @@ class Parser {
       return this.parseSwarmStatement();
     }
 
+    // App declaration
+    if (token.type === TokenType.APP) {
+      return this.parseAppDecl();
+    }
+
     // Skill declaration
     if (token.type === TokenType.SKILL) {
       return this.parseSkillDecl();
@@ -355,6 +360,25 @@ class Parser {
     return new ASTNode('SwarmStatement', { steps });
   }
 
+  parseAppDecl() {
+    this.expect(TokenType.APP);
+    this.expect(TokenType.LBRACE);
+
+    const config = {};
+    while (this.current().type !== TokenType.RBRACE) {
+      const fieldName = this.expect(TokenType.IDENTIFIER).value;
+      this.expect(TokenType.COLON);
+      config[fieldName] = this.parseExpression();
+
+      if (this.current().type === TokenType.COMMA) {
+        this.advance();
+      }
+    }
+
+    this.expect(TokenType.RBRACE);
+    return new ASTNode('AppDecl', { config });
+  }
+
   parseSkillDecl() {
     this.expect(TokenType.SKILL);
     const name = this.expect(TokenType.IDENTIFIER).value;
@@ -364,6 +388,8 @@ class Parser {
     while (this.current().type !== TokenType.RBRACE) {
       if (this.current().type === TokenType.CALL_TOOL) {
         body.push(this.parseCallToolStatement());
+      } else if (this.current().type === TokenType.LOOP) {
+        body.push(this.parseLoopUntil());
       } else {
         const field = this.expect(TokenType.IDENTIFIER).value;
         this.expect(TokenType.COLON);

@@ -1,0 +1,32 @@
+-- Swibe App Genesis: Autonomous App Creation
+-- This script demonstrates the new `app` primitive.
+
+skill Architect {
+  prompt: "Design minimal viable app for: {{need}}"
+}
+
+skill Builder {
+  prompt: "Generate complete Swibe code for the app (include UI if web)"
+}
+
+skill Healer {
+  loop until goal: "App is stable and user-reported issues = 0" {
+    -- monitor logs + auto-patch
+    rag.save("app_state")
+  }
+}
+
+app {
+  type: "todo",
+  need: "simple daily planner for a busy mom with 3 kids",
+  platform: "web"
+}
+
+swarm {
+  architect: Architect =>
+  builder: Builder =>
+  healer: Healer =>
+  runner: "Deploy to Vercel/Netlify and return live URL"
+}
+
+trace("App spun up and self-healing")

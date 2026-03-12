@@ -175,14 +175,38 @@ class LLMIntegration {
     if (prompt.includes('Get BTC price')) {
       return `"67890.12 USD"`;
     }
-    if (prompt.includes('Format this:')) {
-      return `"Bitcoin: 67890.12 USD at 2026-03-11"`;
+    if (prompt.includes('Format BTC:')) {
+      const priceMatch = prompt.match(/\d+\.\d+/);
+      const price = priceMatch ? priceMatch[0] : "unknown";
+      return `"BTC: $${price} USD – Àṣẹ"`;
     }
     if (prompt.includes('Log to Sui:')) {
       return `"0xabcd1234567890abcdef1234567890abcdef1234567890abcdef1234567890"`;
     }
     if (prompt.includes('Generate a minimal patch')) {
       return `"const MAX_RECURSION_DEPTH = 5; // Updated from 2"`;
+    }
+    if (prompt.includes('Design minimal viable app')) {
+      return `"Architectural Blueprint:
+1. Frontend: React + Tailwind (Single Page)
+2. Backend: Node.js Express API
+3. Database: SQLite (local)
+4. Features: Add task, List tasks, Mark done, Delete task."`;
+    }
+    if (prompt.includes('Generate complete Swibe code')) {
+      return `"// Generated App Code
+app {
+  name: 'MomPlanner',
+  routes: ['/api/tasks', '/']
+}
+// UI Components generated...
+// API Endpoints generated..."`;
+    }
+    if (prompt.includes('App is stable')) {
+      return `"App is running stable. No issues detected."`;
+    }
+    if (prompt.includes('Deploy to Vercel')) {
+      return `"https://mom-planner-app.vercel.app"`;
     }
     if (prompt.includes('Simulate running unit tests')) {
       return `"PASS"`;
@@ -322,7 +346,8 @@ class Agent {
   }
 
   buildAgentPrompt(goal) {
-    return `Goal: ${goal}
+    const goalStr = typeof goal === 'object' ? JSON.stringify(goal, null, 2) : goal;
+    return `Goal: ${goalStr}
 
 Available tools: ${this.tools.join(', ')}
 

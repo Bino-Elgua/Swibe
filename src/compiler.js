@@ -197,6 +197,9 @@ class Compiler {
       case 'SwarmStatement':
         return this.genJSSwarm(node);
 
+      case 'AppDecl':
+        return `const __APP_CONFIG = { ${Object.entries(node.config).map(([k, v]) => `${k}: ${this.genJavaScript(v)}`).join(', ')} };\n(await println("📱 App Configured:", __APP_CONFIG));`;
+
       case 'SkillDecl':
         return this.genJSSkill(node);
 
@@ -298,7 +301,7 @@ class Compiler {
     for (const step of node.steps) {
       code += `  { name: "${step.name}", role: ${this.genJavaScript(step.role)} },\n`;
     }
-    code += `]);\nawait __swarm.run();\n`;
+    code += `]);\n(await __swarm.run(typeof __APP_CONFIG !== 'undefined' ? __APP_CONFIG : undefined));\n`;
     return code;
   }
 
@@ -307,10 +310,10 @@ class Compiler {
     code += `  type: "skill",\n`;
     code += `  actions: async () => {\n`;
     for (const item of node.body) {
-      if (item.type === 'CallToolStatement') {
-        code += `    ${this.genJavaScript(item)}\n`;
-      } else {
+      if (item.type === 'SkillProperty') {
         code += `    this.${item.name} = ${this.genJavaScript(item.value)};\n`;
+      } else {
+        code += `    ${this.genJavaScript(item)}\n`;
       }
     }
     code += `  }\n};\n`;

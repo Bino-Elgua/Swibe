@@ -44,11 +44,22 @@ class StandardLibrary {
       'trace': this.trace,
       'type': this.type,
       'exit': this.exit,
+      'sleep': this.sleep,
       'create_agent': this.create_agent,
+      'deploy_app': this.deploy_app,
     };
   }
 
   // ... (rest of methods)
+
+  deploy_app(url) {
+    console.log(`[DEPLOY] Application deploying to: ${url}`);
+    return url;
+  }
+
+  async sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
   create_agent(config) {
     return new Agent(config);
@@ -142,7 +153,13 @@ const mcp = {
     console.log(`[MCP] Calling tool: ${name}`, JSON.stringify(args));
     
     if (name === "coinbase_api") {
-      return JSON.stringify({ data: { amount: "67890.12", currency: "USD" } });
+      try {
+        const response = await fetch("https://api.coinbase.com/v2/prices/BTC-USD/spot");
+        const data = await response.json();
+        return JSON.stringify(data);
+      } catch (err) {
+        return JSON.stringify({ error: "Failed to fetch BTC price", details: err.message });
+      }
     }
     
     if (name === "sui_rpc") {
@@ -165,7 +182,22 @@ class SwarmPipeline {
 
     for (const step of this.steps) {
       console.log(`[SWARM] Step: ${step.name}`);
-      const agent = step.role instanceof Agent ? step.role : new Agent({ name: step.name, system_prompt: step.role });
+      let agent;
+      
+      if (step.role instanceof Agent) {
+        agent = step.role;
+      } else if (typeof step.role === 'object' && step.role.type === 'skill') {
+        // Execute skill actions to populate config
+        const context = {};
+        await step.role.actions.call(context);
+        agent = new Agent({
+          name: step.name,
+          system_prompt: context.prompt,
+          tools: context.tools
+        });
+      } else {
+        agent = new Agent({ name: step.name, system_prompt: step.role });
+      }
       
       const result = await agent.run(currentInput);
       this.results[step.name] = result;
