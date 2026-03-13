@@ -5,6 +5,8 @@
 
 import vm from 'node:vm';
 import crypto from 'node:crypto';
+import fs from 'node:fs';
+import os from 'node:os';
 import { Agent, LLMIntegration } from './llm-integration.js';
 import { sovereign } from './sovereign-vault.js';
 
@@ -67,6 +69,13 @@ class StandardLibrary {
       'think': this.think.bind(this),
       'refuse_if': (cond) => cond,
       'seal': (msg) => msg,
+      'date': {
+        weekday: () => {
+          const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+          return days[new Date().getDay()];
+        }
+      },
+      'load_routine': this.load_routine.bind(this),
       'NeuralLayer': {
         type: "skill",
         actions: async function() {
@@ -81,6 +90,19 @@ class StandardLibrary {
 
   lookup_meta(word) {
     return sovereign.lookupMeta(word);
+  }
+
+  load_routine(path) {
+    try {
+      const fullPath = path.replace('~', os.homedir());
+      if (fs.existsSync(fullPath)) {
+        const data = fs.readFileSync(fullPath, 'utf8');
+        return JSON.parse(data);
+      }
+    } catch (err) {
+      console.error(`[ERROR] Failed to load routine from ${path}: ${err.message}`);
+    }
+    return {};
   }
 
   async think(prompt, config = {}) {
@@ -222,8 +244,11 @@ class StandardLibrary {
       no_external_upload: this.no_external_upload.bind(this),
       println: (...args) => console.log('[SANDBOX-LOG]', ...args),
       join: this.join.bind(this),
+      contains: this.builtins.contains,
       trace: this.trace.bind(this),
       think: this.think.bind(this),
+      date: this.builtins.date,
+      load_routine: this.load_routine.bind(this),
       NeuralLayer: this.builtins.NeuralLayer,
       rag: {
         save: (name, data) => {
