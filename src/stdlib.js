@@ -76,6 +76,10 @@ class StandardLibrary {
         }
       },
       'load_routine': this.load_routine.bind(this),
+      'set_ui_color': (color) => console.log(`[UI] Color set to: ${color}`),
+      'play_tone': (freq) => console.log(`[AUDIO] Playing tone: ${freq}Hz`),
+      'set_principle_filter': (p) => console.log(`[REASONING] Principle filter applied: ${p}`),
+      'apply_virtue_check': (v) => console.log(`[ETHICS] Virtue check active: ${v}`),
       'NeuralLayer': {
         type: "skill",
         actions: async function() {
@@ -249,6 +253,10 @@ class StandardLibrary {
       think: this.think.bind(this),
       date: this.builtins.date,
       load_routine: this.load_routine.bind(this),
+      set_ui_color: this.builtins.set_ui_color,
+      play_tone: this.builtins.play_tone,
+      set_principle_filter: this.builtins.set_principle_filter,
+      apply_virtue_check: this.builtins.apply_virtue_check,
       NeuralLayer: this.builtins.NeuralLayer,
       rag: {
         save: (name, data) => {
