@@ -1,0 +1,45 @@
+-- Test file for Swibe v4.0 parser
+-- Tests import support, 5 primitives, and deprecation warnings
+
+import stdlib from "stdlib"
+
+birth {
+  agent_id: "v4-test-001",
+  name: "TestAgent",
+  role: "tester"
+}
+
+ethics {
+  harm_none: true,
+  transparency: "full"
+}
+
+permission {
+  think: "auto",
+  bash: "simulate"
+}
+
+think "Test v4 parser functionality" {
+  max_iterations: 3,
+  loop: true
+}
+
+receipt {
+  log_all: true,
+  seal: true
+}
+
+-- Below should trigger deprecation warnings
+skill {
+  prompt: "This should warn"
+}
+
+-- team and wallet parsing works but compiler may not handle them yet
+-- team "TestTeam" {
+--   member: "alice"
+-- }
+
+-- wallet {
+--   agent: "bob",
+--   balance: 1000
+-- }

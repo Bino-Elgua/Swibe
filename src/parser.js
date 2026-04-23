@@ -4,6 +4,7 @@
  */
 
 import { TokenType } from './lexer.js';
+import { isDeprecated, emitDeprecationWarning, getMigrationInfo } from './deprecation.js';
 
 class ASTNode {
   constructor(type, props = {}) {
@@ -147,8 +148,90 @@ class Parser {
     return new ASTNode('Program', { statements });
   }
 
+  // Phase 5: Import statement parsing
+  parseImportStatement() {
+    this.advance(); // consume 'import'
+    
+    // Parse: import <name> from <source>
+    const name = this.expect(TokenType.IDENTIFIER);
+    
+    // Check for 'from' keyword
+    let source = null;
+    if (this.current().value === 'from') {
+      this.advance(); // consume 'from'
+      const sourceToken = this.expect(TokenType.STRING);
+      source = sourceToken.value;
+    }
+    
+    return new ASTNode('ImportStatement', {
+      name: name.value,
+      source
+    });
+  }
+
   parseStatement() {
     const token = this.current();
+
+    // Phase 5: Import statement support
+    if (token.type === TokenType.IMPORT) {
+      return this.parseImportStatement();
+    }
+
+    // Phase 5: Handle deprecated primitives (now treated as identifiers)
+    if (token.type === TokenType.IDENTIFIER && isDeprecated(token.value)) {
+      const primitive = token.value;
+      emitDeprecationWarning(primitive, token);
+      
+      // Advance past the deprecated identifier
+      this.advance();
+      
+      // Route to appropriate parser based on primitive
+      switch (primitive) {
+        case 'skill': return this.parseSkillDecl();
+        case 'team': return this.parseTeamStatement();
+        case 'swarm': return this.parseSwarmStatement();
+        case 'coordinate': return this.parseCoordinateStatement();
+        case 'gestalt': return this.parseGestaltStatement();
+        case 'wallet': return this.parseWalletStatement();
+        case 'witness': return this.parseWitnessStatement();
+        case 'secure': return this.parseSecureBlock();
+        case 'chain': return this.parseChainStatement();
+        case 'plan': return this.parsePlanStatement();
+        case 'retrieve': return this.parseRetrieveStatement();
+        case 'mint': 
+          this.advance();
+          let mintArgs = null;
+          if (this.current().type !== TokenType.SEMICOLON && this.current().type !== TokenType.RBRACE) {
+            mintArgs = this.parseExpression();
+          }
+          this.match(TokenType.SEMICOLON);
+          return new ASTNode('MintStatement', { config: mintArgs });
+        case 'seal':
+          this.advance();
+          this.match(TokenType.SEMICOLON);
+          return new ASTNode('SealStatement', {});
+        case 'walrus': return this.parseWalrusStatement();
+        case 'sovereign': return this.parseSovereignStatement();
+        case 'budget': return this.parseBudgetStatement();
+        case 'remember': return this.parseRememberStatement();
+        case 'observe': return this.parseObserveStatement();
+        case 'evolve': return this.parseEvolveStatement();
+        case 'commons': return this.parseCommonsStatement();
+        case 'public_facing': return this.parsePublicFacingStatement();
+        case 'web_ingest': return this.parseWebIngestStatement();
+        case 'heartbeat': return this.parseHeartbeatStatement();
+        case 'share': return this.parseShareStatement();
+        case 'neural':
+          this.advance();
+          this.match(TokenType.SEMICOLON);
+          return new ASTNode('NeuralLayer', {});
+        case 'app': return this.parseAppDecl();
+        case 'meta-digital': return this.parseMetaDigital();
+        default:
+          // Unknown deprecated primitive - treat as expression
+          return this.parseExpression();
+      }
+    }
 
     // Function declaration
     if (token.type === TokenType.FN) {
@@ -197,55 +280,9 @@ class Parser {
       return this.parseSwarmStatement();
     }
 
-    // Share statement
-    if (token.type === TokenType.SHARE) {
-      return this.parseShareStatement();
-    }
-
-    // Birth statement
+    // Birth statement (CORE PRIMITIVE - keep)
     if (token.type === TokenType.BIRTH) {
       return this.parseBirthStatement();
-    }
-
-    // Neural statement
-    if (token.type === TokenType.NEURAL) {
-      this.advance();
-      this.match(TokenType.SEMICOLON);
-      return new ASTNode('NeuralLayer', {});
-    }
-
-    // App declaration
-    if (token.type === TokenType.APP) {
-      return this.parseAppDecl();
-    }
-
-    // Meta-digital declaration
-    if (token.type === TokenType.META_DIGITAL) {
-      return this.parseMetaDigital();
-    }
-
-    // Skill declaration
-    if (token.type === TokenType.SKILL) {
-      return this.parseSkillDecl();
-    }
-
-    if (token.type === TokenType.SECURE) {
-      return this.parseSecureBlock();
-    }
-
-    // Chain statement
-    if (token.type === TokenType.CHAIN) {
-      return this.parseChainStatement();
-    }
-
-    // Plan statement
-    if (token.type === TokenType.PLAN) {
-      return this.parsePlanStatement();
-    }
-
-    // Retrieve statement
-    if (token.type === TokenType.RETRIEVE) {
-      return this.parseRetrieveStatement();
     }
 
     // Loop until goal
@@ -271,17 +308,6 @@ class Parser {
       return new ASTNode('TargetDirective', { target: token.value, body });
     }
 
-    // New statements for sovereign blockchain integration
-    if (token.type === TokenType.MINT) {
-      this.advance();
-      let args = null;
-      if (this.current().type !== TokenType.SEMICOLON && this.current().type !== TokenType.RBRACE) {
-        args = this.parseExpression();
-      }
-      this.match(TokenType.SEMICOLON);
-      return new ASTNode('MintStatement', { config: args });
-    }
-
     if (token.type === TokenType.RECEIPT) {
       this.advance();
       let args = null;
@@ -292,156 +318,126 @@ class Parser {
       return new ASTNode('ReceiptStatement', { config: args });
     }
 
-    if (token.type === TokenType.SEAL) {
-      this.advance();
-      this.match(TokenType.SEMICOLON);
-      return new ASTNode('SealStatement', {});
-    }
-
-    if (token.type === TokenType.WALRUS) {
-      return this.parseWalrusStatement();
-    }
-
-    if (token.type === TokenType.SOVEREIGN) {
-      return this.parseSovereignStatement();
-    }
-
-    // Budget statement
-    if (token.type === TokenType.BUDGET) {
-      return this.parseBudgetStatement();
-    }
-
-    // Remember statement
-    if (token.type === TokenType.REMEMBER) {
-      return this.parseRememberStatement();
-    }
-
-    // Observe statement
-    if (token.type === TokenType.OBSERVE) {
-      return this.parseObserveStatement();
-    }
-
-    // Evolve statement
-    if (token.type === TokenType.EVOLVE) {
-      return this.parseEvolveStatement();
-    }
-
     if (token.type === TokenType.ETHICS) {
       return this.parseEthicsStatement();
     }
 
-    if (token.type === TokenType.COMMONS) {
-      return this.parseCommonsStatement();
-    }
-
-    if (token.type === TokenType.PUBLIC_FACING) {
-      return this.parsePublicFacingStatement();
-    }
-
-    if (token.type === TokenType.WEB_INGEST) {
-      return this.parseWebIngestStatement();
-    }
-
-    // Heartbeat statement
-    if (token.type === TokenType.HEARTBEAT) {
-      return this.parseHeartbeatStatement();
-    }
-
-    // Permission statement
+    // Permission statement (CORE PRIMITIVE - keep)
     if (token.type === TokenType.PERMISSION) {
       return this.parsePermissionStatement();
     }
 
-    // Filesystem statement
+    // Filesystem statement (DEPRECATED in v4.0)
     if (token.type === TokenType.FILESYSTEM) {
+      emitDeprecationWarning('filesystem', token);
       return this.parseFilesystemBlock();
     }
 
-    // MCP statement
+    // MCP statement (DEPRECATED in v4.0)
     if (token.type === TokenType.MCP) {
+      emitDeprecationWarning('mcp', token);
       return this.parseMCPStatement();
     }
 
-    // Team statement
+    // Team statement (DEPRECATED in v4.0)
     if (token.type === TokenType.TEAM) {
+      emitDeprecationWarning('team', token);
       return this.parseTeamStatement();
     }
 
-    // Edit statement
+    // Edit statement (DEPRECATED in v4.0)
     if (token.type === TokenType.EDIT) {
+      emitDeprecationWarning('edit', token);
       return this.parseEditStatement();
     }
 
-    // Bridge statement
+    // Bridge statement (DEPRECATED in v4.0)
     if (token.type === TokenType.BRIDGE) {
+      emitDeprecationWarning('bridge', token);
       return this.parseBridgeStatement();
     }
 
-    // Session statement
+    // Session statement (DEPRECATED in v4.0)
     if (token.type === TokenType.SESSION) {
+      emitDeprecationWarning('session', token);
       return this.parseSessionStatement();
     }
 
-    // Policy statement
+    // Policy statement (DEPRECATED in v4.0)
     if (token.type === TokenType.POLICY) {
+      emitDeprecationWarning('policy', token);
       return this.parsePolicyStatement();
     }
 
-    // Analytics statement
+    // Analytics statement (DEPRECATED in v4.0)
     if (token.type === TokenType.ANALYTICS) {
+      emitDeprecationWarning('analytics', token);
       return this.parseAnalyticsStatement();
     }
 
-    // Coordinate statement
+    // Coordinate statement (DEPRECATED in v4.0)
     if (token.type === TokenType.COORDINATE) {
+      emitDeprecationWarning('coordinate', token);
       return this.parseCoordinateStatement();
     }
 
-    // Witness statement (multimodal perception)
+    // Witness statement (multimodal perception) (DEPRECATED in v4.0)
     if (token.type === TokenType.WITNESS) {
+      emitDeprecationWarning('witness', token);
       return this.parseWitnessStatement();
     }
 
-    // Pilot statement (computer control)
+    // Pilot statement (computer control) (DEPRECATED in v4.0)
     if (token.type === TokenType.PILOT) {
+      emitDeprecationWarning('pilot', token);
       return this.parsePilotStatement();
     }
 
-    // Viewport statement (screen understanding)
+    // Viewport statement (screen understanding) (DEPRECATED in v4.0)
     if (token.type === TokenType.VIEWPORT) {
+      emitDeprecationWarning('viewport', token);
       return this.parseViewportStatement();
     }
 
-    // Gestalt statement (parallel tool execution)
+    // Gestalt statement (parallel tool execution) (DEPRECATED in v4.0)
     if (token.type === TokenType.GESTALT) {
+      emitDeprecationWarning('gestalt', token);
       return this.parseGestaltStatement();
     }
 
-    // Phase 7: ToC Tokenomics
+    // Phase 7: ToC Tokenomics (DEPRECATED in v4.0)
     if (token.type === TokenType.TOKEN) {
+      emitDeprecationWarning('token', token);
       return this.parseTokenStatement();
     }
     if (token.type === TokenType.WALLET) {
+      emitDeprecationWarning('wallet', token);
       return this.parseWalletStatement();
     }
     if (token.type === TokenType.STAKE) {
+      emitDeprecationWarning('stake', token);
       return this.parseStakeStatement();
     }
     if (token.type === TokenType.SLASH) {
+      emitDeprecationWarning('slash', token);
       return this.parseSlashStatement();
     }
     if (token.type === TokenType.CONVERT) {
+      emitDeprecationWarning('convert', token);
       return this.parseConvertStatement();
     }
     if (token.type === TokenType.ROYALTY) {
+      emitDeprecationWarning('royalty', token);
       return this.parseRoyaltyStatement();
     }
     if (token.type === TokenType.ESCROW) {
+      emitDeprecationWarning('escrow', token);
       return this.parseEscrowStatement();
     }
 
-    // Call tool statement
+    // Call tool statement (DEPRECATED in v4.0)
     if (token.type === TokenType.CALL_TOOL) {
+      emitDeprecationWarning('call_tool', token);
       return this.parseCallToolStatement();
     }
 
@@ -554,7 +550,6 @@ class Parser {
   }
 
   parseBudgetStatement() {
-    this.expect(TokenType.BUDGET);
     this.expect(TokenType.LBRACE);
     const config = {};
     while (this.current().type !== TokenType.RBRACE && !this.isAtEnd()) {
@@ -571,7 +566,6 @@ class Parser {
   }
 
   parseRememberStatement() {
-    this.expect(TokenType.REMEMBER);
     const config = {};
     const items = [];
     if (this.current().type === TokenType.LBRACE) {
@@ -598,7 +592,6 @@ class Parser {
   }
 
   parseObserveStatement() {
-    this.expect(TokenType.OBSERVE);
     this.expect(TokenType.LBRACE);
     const event = this.parseExpression();
     this.expect(TokenType.RBRACE);
@@ -609,7 +602,6 @@ class Parser {
   }
 
   parseEvolveStatement() {
-    this.expect(TokenType.EVOLVE);
     this.expect(TokenType.LBRACE);
     const config = {};
     while (this.current().type !== TokenType.RBRACE && !this.isAtEnd()) {
@@ -658,7 +650,6 @@ class Parser {
   }
 
   parseHeartbeatStatement() {
-    this.expect(TokenType.HEARTBEAT);
     this.expect(TokenType.LBRACE);
     const config = {};
     while (this.current().type !== TokenType.RBRACE && !this.isAtEnd()) {
@@ -878,7 +869,6 @@ class Parser {
   }
 
   parseSwarmStatement() {
-    this.expect(TokenType.SWARM);
     
     let swarmName = null;
     if (this.current().type === TokenType.STRING) {
@@ -984,7 +974,6 @@ class Parser {
   }
 
   parseShareStatement() {
-    this.expect(TokenType.SHARE);
     this.expect(TokenType.LBRACE);
 
     const config = {};
@@ -1021,7 +1010,6 @@ class Parser {
   }
 
   parseAppDecl() {
-    this.expect(TokenType.APP);
     this.expect(TokenType.LBRACE);
 
     const config = {};
@@ -1040,7 +1028,6 @@ class Parser {
   }
 
   parseMetaDigital() {
-    this.expect(TokenType.META_DIGITAL);
     const name = this.expect(TokenType.STRING).value;
     this.expect(TokenType.LBRACE);
 
@@ -1083,7 +1070,6 @@ class Parser {
   }
 
   parseSkillDecl() {
-    this.expect(TokenType.SKILL);
     const name = this.expect(TokenType.IDENTIFIER).value;
     this.expect(TokenType.LBRACE);
 
@@ -1109,7 +1095,6 @@ class Parser {
   }
 
   parseSecureBlock() {
-    this.expect(TokenType.SECURE);
     this.expect(TokenType.LBRACE);
     const policies = {};
     const body = [];
@@ -1170,7 +1155,6 @@ class Parser {
   }
 
   parseChainStatement() {
-    this.expect(TokenType.CHAIN);
     let name = null;
     if (this.current().type === TokenType.STRING) {
       name = this.advance().value;
@@ -1215,7 +1199,6 @@ class Parser {
   }
 
   parsePlanStatement() {
-    this.expect(TokenType.PLAN);
     let goal = null;
     if (this.current().type === TokenType.STRING) {
       goal = this.expect(TokenType.STRING).value;
@@ -1225,7 +1208,6 @@ class Parser {
   }
 
   parseRetrieveStatement() {
-    this.expect(TokenType.RETRIEVE);
     const source = this.check(TokenType.STRING) ? this.advance().value : 'vault';
     let query = null;
     if (this.check(TokenType.LBRACE)) {
@@ -1320,7 +1302,6 @@ class Parser {
   }
 
   parseTeamStatement() {
-    this.expect(TokenType.TEAM);
     let name = null;
     if (this.current().type === TokenType.STRING) {
       name = this.expect(TokenType.STRING).value;
@@ -1472,7 +1453,6 @@ class Parser {
   }
 
   parseCoordinateStatement() {
-    this.expect(TokenType.COORDINATE);
     // coordinate "task description" { strategy: "democratic" }
     let task = null;
     if (this.current().type === TokenType.STRING) {
@@ -1495,7 +1475,6 @@ class Parser {
   }
 
   parseWitnessStatement() {
-    this.expect(TokenType.WITNESS);
     this.expect(TokenType.LBRACE);
     const config = {};
     while (this.current().type !== TokenType.RBRACE && !this.isAtEnd()) {
@@ -1555,7 +1534,6 @@ class Parser {
   }
 
   parseGestaltStatement() {
-    this.expect(TokenType.GESTALT);
     this.expect(TokenType.LBRACE);
     const concurrent = [];
     let merge = 'unified_context';
@@ -1605,7 +1583,6 @@ class Parser {
   }
 
   parseWalletStatement() {
-    this.expect(TokenType.WALLET);
     let name = null;
     if (this.current().type === TokenType.STRING) {
       name = this.current().value;
@@ -2168,7 +2145,6 @@ class Parser {
   }
 
   parseCommonsStatement() {
-    this.expect(TokenType.COMMONS);
     let name = null;
     if (this.current().type !== TokenType.LBRACE) {
       name = this.parseExpression();
@@ -2189,7 +2165,6 @@ class Parser {
   }
 
   parsePublicFacingStatement() {
-    this.expect(TokenType.PUBLIC_FACING);
     let name = null;
     if (this.current().type !== TokenType.LBRACE) {
       name = this.parseExpression();
@@ -2210,7 +2185,6 @@ class Parser {
   }
 
   parseWebIngestStatement() {
-    this.expect(TokenType.WEB_INGEST);
     this.expect(TokenType.LBRACE);
     const config = {};
     while (this.current().type !== TokenType.RBRACE && !this.isAtEnd()) {
@@ -2227,7 +2201,6 @@ class Parser {
   }
 
   parseSovereignStatement() {
-    this.expect(TokenType.SOVEREIGN);
     this.expect(TokenType.LBRACE);
     const config = {};
     while (this.current().type !== TokenType.RBRACE && !this.isAtEnd()) {
@@ -2244,7 +2217,6 @@ class Parser {
   }
 
   parseWalrusStatement() {
-    this.expect(TokenType.WALRUS);
     this.expect(TokenType.LBRACE);
     const config = {};
     while (this.current().type !== TokenType.RBRACE && !this.isAtEnd()) {

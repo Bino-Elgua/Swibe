@@ -9,7 +9,7 @@ const TokenType = {
   STRING: 'STRING',
   IDENTIFIER: 'IDENTIFIER',
 
-  // Keywords
+  // Core language keywords
   FN: 'FN',
   STRUCT: 'STRUCT',
   ENUM: 'ENUM',
@@ -44,64 +44,23 @@ const TokenType = {
   LET: 'LET',
   CONST: 'CONST',
 
-  // AI-specific
+  // AI integration keywords
   AI: 'AI',
   RAG: 'RAG',
   EMBED: 'EMBED',
-  AGENT: 'AGENT',
-  SWARM: 'SWARM',
-  NEURAL: 'NEURAL',
-  SKILL: 'SKILL',
-  APP: 'APP',
-  SECURE: 'SECURE',
-  META_DIGITAL: 'META_DIGITAL',
-  UNTIL: 'UNTIL',
-  GOAL: 'GOAL',
-  CALL_TOOL: 'CALL_TOOL',
-  MINT: 'MINT',
-  RECEIPT: 'RECEIPT',
-  SEAL: 'SEAL',
-  WALRUS: 'WALRUS',
-  THINK: 'THINK',
-  BIRTH: 'BIRTH',
-  PROMPT: 'PROMPT', // %%
-  VOICE: 'VOICE',   // [voice: ...]
+  IMPORT: 'IMPORT',        // import statement
+
+  // 5 CORE PRIMITIVES - Agent-native keywords
+  BIRTH: 'BIRTH',        // Agent genesis/initialization
+  THINK: 'THINK',        // Natural language interface
+  ETHICS: 'ETHICS',      // Governance constraints
+  PERMISSION: 'PERMISSION', // Access control
+  RECEIPT: 'RECEIPT',    // Audit proof trail
+
+  // PROMPT & VOICE (AI generation)
+  PROMPT: 'PROMPT',      // %%
+  VOICE: 'VOICE',        // [voice: ...]
   AT_TARGET: 'AT_TARGET', // @target
-  CHAIN: 'CHAIN',
-  PLAN: 'PLAN',
-  RETRIEVE: 'RETRIEVE',
-  BUDGET: 'BUDGET',
-  REMEMBER: 'REMEMBER',
-  OBSERVE: 'OBSERVE',
-  EVOLVE: 'EVOLVE',
-  ETHICS: 'ETHICS',
-  SHARE: 'SHARE',
-  HEARTBEAT: 'HEARTBEAT',
-  PERMISSION: 'PERMISSION',
-  MCP: 'MCP',
-  TEAM: 'TEAM',
-  EDIT: 'EDIT',
-  BRIDGE: 'BRIDGE',
-  SESSION: 'SESSION',
-  POLICY: 'POLICY',
-  ANALYTICS: 'ANALYTICS',
-  COORDINATE: 'COORDINATE',
-  WITNESS: 'WITNESS',
-  PILOT: 'PILOT',
-  VIEWPORT: 'VIEWPORT',
-  GESTALT: 'GESTALT',
-  TOKEN: 'TOKEN',
-  WALLET: 'WALLET',
-  STAKE: 'STAKE',
-  SLASH: 'SLASH',
-  CONVERT: 'CONVERT',
-  ROYALTY: 'ROYALTY',
-  ESCROW: 'ESCROW',
-  COMMONS: 'COMMONS',
-  PUBLIC_FACING: 'PUBLIC_FACING',
-  WEB_INGEST: 'WEB_INGEST',
-  SOVEREIGN: 'SOVEREIGN',
-  FILESYSTEM: 'FILESYSTEM',
 
   // Operators
   PLUS: 'PLUS',
@@ -109,20 +68,20 @@ const TokenType = {
   STAR: 'STAR',
   SLASH: 'SLASH',
   PERCENT: 'PERCENT',
-  ASSIGN: 'ASSIGN',   // =
-  PIPE: 'PIPE',       // |>
-  BAR: 'BAR',         // |
-  ARROW: 'ARROW',     // ->
+  ASSIGN: 'ASSIGN',      // =
+  PIPE: 'PIPE',          // |>
+  BAR: 'BAR',            // |
+  ARROW: 'ARROW',        // ->
   FAT_ARROW: 'FAT_ARROW', // =>
-  EQ: 'EQ',           // ==
-  NE: 'NE',           // !=
-  LT: 'LT',           // <
-  LE: 'LE',           // <=
-  GT: 'GT',           // >
-  GE: 'GE',           // >=
-  AND: 'AND',         // &&
-  OR: 'OR',           // ||
-  NOT: 'NOT',         // !
+  EQ: 'EQ',              // ==
+  NE: 'NE',              // !=
+  LT: 'LT',              // <
+  LE: 'LE',              // <=
+  GT: 'GT',              // >
+  GE: 'GE',              // >=
+  AND: 'AND',            // &&
+  OR: 'OR',              // ||
+  NOT: 'NOT',            // !
   AMPERSAND: 'AMPERSAND', // &
   DOUBLE_COLON: 'DOUBLE_COLON', // ::
 
@@ -275,6 +234,7 @@ class Lexer {
   }
 
   keywords = {
+    // Core language
     fn: TokenType.FN,
     struct: TokenType.STRUCT,
     enum: TokenType.ENUM,
@@ -308,56 +268,23 @@ class Lexer {
     Result: TokenType.RESULT,
     let: TokenType.LET,
     const: TokenType.CONST,
+
+    // AI integration
     ai: TokenType.AI,
     rag: TokenType.RAG,
     embed: TokenType.EMBED,
-    agent: TokenType.AGENT,
-    swarm: TokenType.SWARM,
-    neural: TokenType.NEURAL,
-    skill: TokenType.SKILL,
-    app: TokenType.APP,
-    secure: TokenType.SECURE,
-    mint: TokenType.MINT,
-    receipt: TokenType.RECEIPT,
-    seal: TokenType.SEAL,
-    walrus: TokenType.WALRUS,
-    think: TokenType.THINK,
+    import: TokenType.IMPORT,
+
+    // 5 CORE PRIMITIVES (only these agent-specific keywords remain)
     birth: TokenType.BIRTH,
-    chain: TokenType.CHAIN,
-    plan: TokenType.PLAN,
-    retrieve: TokenType.RETRIEVE,
-    budget: TokenType.BUDGET,
-    remember: TokenType.REMEMBER,
-    observe: TokenType.OBSERVE,
-    evolve: TokenType.EVOLVE,
+    think: TokenType.THINK,
     ethics: TokenType.ETHICS,
-    share: TokenType.SHARE,
-    heartbeat: TokenType.HEARTBEAT,
     permission: TokenType.PERMISSION,
-    mcp: TokenType.MCP,
-    team: TokenType.TEAM,
-    edit: TokenType.EDIT,
-    bridge: TokenType.BRIDGE,
-    session: TokenType.SESSION,
-    policy: TokenType.POLICY,
-    analytics: TokenType.ANALYTICS,
-    coordinate: TokenType.COORDINATE,
-    witness: TokenType.WITNESS,
-    pilot: TokenType.PILOT,
-    viewport: TokenType.VIEWPORT,
-    gestalt: TokenType.GESTALT,
-    token: TokenType.TOKEN,
-    wallet: TokenType.WALLET,
-    stake: TokenType.STAKE,
-    slash: TokenType.SLASH,
-    convert: TokenType.CONVERT,
-    royalty: TokenType.ROYALTY,
-    escrow: TokenType.ESCROW,
-    commons: TokenType.COMMONS,
-    public_facing: TokenType.PUBLIC_FACING,
-    web_ingest: TokenType.WEB_INGEST,
-    sovereign: TokenType.SOVEREIGN,
-    filesystem: TokenType.FILESYSTEM,
+    receipt: TokenType.RECEIPT,
+
+    // Deprecated - maintained for backward compatibility, should use stdlib instead
+    // See: stdlib/identity, stdlib/metabolism, stdlib/witness, stdlib/memory,
+    //      stdlib/swarm, stdlib/hire, stdlib/receipt
   };
 
   addToken(type, value = null) {
@@ -374,16 +301,6 @@ class Lexer {
       this.tokenLine = this.line;
       this.tokenColumn = this.column;
       const char = this.current();
-
-      // Special case for meta-digital (keyword with hyphen)
-      if (this.source.substring(this.pos, this.pos + 12) === 'meta-digital') {
-        const nextChar = this.source[this.pos + 12];
-        if (!nextChar || /\s/.test(nextChar) || nextChar === '{') {
-          this.addToken(TokenType.META_DIGITAL, 'meta-digital');
-          for (let i = 0; i < 12; i++) this.advance();
-          continue;
-        }
-      }
 
       // Comments
       if ((char === '-' && this.peek() === '-') || (char === '/' && this.peek() === '/')) {

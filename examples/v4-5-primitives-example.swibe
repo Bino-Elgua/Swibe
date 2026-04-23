@@ -1,0 +1,233 @@
+-- ============================================================
+-- SWIBE v4.0 - 5-PRIMITIVE SYSTEM EXAMPLES
+-- Clean, modular agent-native scripting
+-- ============================================================
+
+import stdlib from "stdlib"
+
+-- ============================================================
+-- 1. BIRTH - Agent Genesis & Identity
+-- ============================================================
+-- Creates or initializes an agent with identity
+-- Uses BIPỌ̀N39 for deterministic identity
+
+birth {
+  agent_id: "sovereign-001",
+  name: "Architect",
+  identity_type: "sovereign",
+  mnemonic: "esu-gate alpha sango-volt beta ogun-forge gamma...",
+  role: "architect",
+  metadata: {
+    domain: "code_analysis",
+    tier: "senior"
+  }
+}
+
+-- ============================================================
+-- 2. ETHICS - Governance Constraints & Values
+-- ============================================================
+-- Define what the agent believes and will not do
+
+ethics {
+  harm_none: true,
+  transparency: "full",
+  data_ownership: "user",
+  sovereign_data: true,
+  forbidden: [
+    "external_upload",
+    "credential_sharing",
+    "unauthorized_fork"
+  ],
+  values: {
+    respect_autonomy: true,
+    fair_compensation: true,
+    open_governance: true
+  }
+}
+
+-- ============================================================
+-- 3. PERMISSION - Access Control Matrix
+-- ============================================================
+-- Define what the agent is allowed to do
+
+permission {
+  think: "auto",           -- Auto-approve thinking
+  bash: "simulate",        -- Simulate bash, don't execute
+  mint: "ask",             -- Ask user before minting tokens
+  edit: "sandbox",         -- Edit in sandbox only
+  network: "restricted",   -- No external calls
+  filesystem: "sandbox",   -- Limited to sandbox
+  
+  -- Granular capabilities
+  llm_routing: "ethics_only",    -- Route through ethics layer
+  receipt_sealing: "on",         -- Seal all receipts
+  strict: true
+}
+
+-- ============================================================
+-- 4. THINK - Main Natural Language Interface
+-- ============================================================
+-- The core agent reasoning and action loop
+-- Uses stdlib intelligently to achieve goals
+
+think "Analyze codebase security and generate report" {
+  max_iterations: 5,
+  loop: true,
+  timeout: "300s",
+  
+  -- Initialize identity
+  stdlib.identity.createIdentity(null, "security_analyst"),
+  
+  -- Set up memory
+  stdlib.memory.remember(
+    "task",
+    "security analysis",
+    { type: "objective", importance: "critical", tags: ["security"] }
+  ),
+  
+  -- Create team for task
+  stdlib.swarm.createTeam("SecurityTeam", ["sovereign-001"], {
+    architect: "lead",
+    coder: "reviewer"
+  }),
+  
+  -- Register skill
+  stdlib.hire.registerSkill("analyze_code", {
+    description: "Analyze code for security vulnerabilities",
+    prompt: "Identify all security issues in this codebase",
+    cost: 50
+  }),
+  
+  -- Hire agent for task
+  stdlib.hire.hireAgent("sovereign-001", "Run security analysis", {
+    costEstimate: 50,
+    maxIterations: 5
+  }),
+  
+  -- Allocate tokens (dopamine)
+  stdlib.metabolism.createWallet("sovereign-001", 1000),
+  stdlib.metabolism.emitDopamine("sovereign-001", 100, "task_assigned"),
+  
+  -- Log events
+  stdlib.witness.logEvent("task_started", { task: "security_analysis" }, "sovereign-001"),
+  
+  -- Create receipt chain
+  stdlib.receipt.createChain("sovereign-001"),
+  
+  -- Main loop (implicit via think's iterations)
+  -- Each iteration:
+  --   1. Execute analysis
+  --   2. Log progress via witness
+  --   3. Update memory
+  --   4. Emit dopamine rewards
+  --   5. Create receipts
+  
+  -- On completion
+  stdlib.witness.evolve("task_completed", { result: "security_report" }),
+  stdlib.metabolism.emitDopamine("sovereign-001", 50, "task_completed"),
+  stdlib.memory.remember("last_analysis", "report.md", { ttl: 604800000 })
+}
+
+-- ============================================================
+-- 5. RECEIPT - Audit & Proof Trail
+-- ============================================================
+-- Create immutable record of agent actions and proofs
+
+receipt {
+  log_all: true,
+  seal: true,
+  merkle_proof: true,
+  retention: "permanent",
+  
+  -- Metadata
+  metadata: {
+    agent: "sovereign-001",
+    timestamp: "2026-04-22T10:30:00Z",
+    task_id: "sec-001"
+  }
+}
+
+-- ============================================================
+-- STDLIB MODULE OVERVIEW
+-- ============================================================
+
+-- Identity Module (BIPỌ̀N39)
+-- stdlib.identity.createIdentity(mnemonic, role)
+-- stdlib.identity.registerRole(name, config)
+-- stdlib.identity.assignRole(agentId, role)
+-- stdlib.identity.createNamespace(namespace, members)
+
+-- Metabolism Module (Tokenomics)
+-- stdlib.metabolism.createWallet(agentId, balance)
+-- stdlib.metabolism.emitDopamine(agentId, amount, reason)
+-- stdlib.metabolism.stake(agentId, amount)
+-- stdlib.metabolism.unstake(agentId)
+-- stdlib.metabolism.dopamineToSynapse(agentId, amount)
+-- stdlib.metabolism.slash(agentId, reason)
+-- stdlib.metabolism.getBalance(agentId)
+
+-- Witness Module (Event Logging)
+-- stdlib.witness.logEvent(type, data, agent)
+-- stdlib.witness.observe(type, callback)
+-- stdlib.witness.getEvents(filter)
+-- stdlib.witness.evolve(type, metadata)
+
+-- Memory Module (Storage)
+-- stdlib.memory.remember(key, value, metadata)
+-- stdlib.memory.retrieve(key)
+-- stdlib.memory.search(criteria)
+-- stdlib.memory.forget(key)
+-- stdlib.memory.searchByTag(tag)
+
+-- Swarm Module (Team Coordination)
+-- stdlib.swarm.createSwarm(name, config)
+-- stdlib.swarm.addToSwarm(swarmName, agentId, role)
+-- stdlib.swarm.createTeam(name, members, config)
+-- stdlib.swarm.coordinate(id, task, agents)
+-- stdlib.swarm.broadcast(swarmName, message)
+
+-- Hire Module (Skill & Delegation)
+-- stdlib.hire.registerSkill(name, config)
+-- stdlib.hire.hireAgent(agentId, task, config)
+-- stdlib.hire.createContract(id, delegator, delegatee, skill, terms)
+-- stdlib.hire.executeSkill(contractId, input)
+-- stdlib.hire.listSkills()
+
+-- Receipt Module (Proofs & Chain)
+-- stdlib.receipt.createReceipt(type, data, agent)
+-- stdlib.receipt.transact(type, data, agent)
+-- stdlib.receipt.seal(receiptId)
+-- stdlib.receipt.merkleProof(receiptId)
+-- stdlib.receipt.createChain(agentId)
+-- stdlib.receipt.verify(receiptId)
+
+-- ============================================================
+-- MIGRATION FROM OLD SYNTAX
+-- ============================================================
+
+-- OLD: Multiple keywords
+-- ethics { ... }
+-- secure { ... }
+-- permission { ... }
+-- budget { ... }
+-- team "Devs" { ... }
+-- swarm { agent1, agent2 }
+-- skill { ... }
+-- remember { ... }
+-- witness { ... }
+-- wallet { ... }
+-- stake { ... }
+
+-- NEW: Clean 5 primitives + stdlib
+birth { agent_id: "...", role: "..." }
+ethics { harm_none: true, ... }
+permission { think: "auto", ... }
+think "Do everything needed" {
+  stdlib.swarm.createTeam(...),
+  stdlib.hire.registerSkill(...),
+  stdlib.metabolism.createWallet(...),
+  stdlib.memory.remember(...),
+  stdlib.witness.logEvent(...),
+  stdlib.receipt.createReceipt(...)
+}
+receipt { log_all: true }
